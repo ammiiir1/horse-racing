@@ -2,10 +2,20 @@
   <header class="app-header">
     <div class="content-wrapper">
       <h1 class="app-title">Horse Racing</h1>
-      <div class="btns">
-        <button class="btn">Generate Program</button>
-        <button class="btn">Start Race</button>
-      </div>
+      <nav>
+        <ul>
+          <NuxtLink :to="{ name: 'index' }" v-slot="{ href, navigate }" custom>
+            <li @click="navigate">
+              <a :href="href">Horses Details</a>
+            </li>
+          </NuxtLink>
+          <NuxtLink :to="{ name: 'programs' }" v-slot="{ href, navigate }" custom>
+            <li @click="navigate">
+              <a :href="href">Start a Race</a>
+            </li>
+          </NuxtLink>
+        </ul>
+      </nav>
     </div>
   </header>
 </template>

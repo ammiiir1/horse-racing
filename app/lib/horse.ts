@@ -86,7 +86,7 @@ const horseNames = [
 // ///////////////////////////////////////////////////// helpers
 const genRandomColor = () => {
   const hue = Math.floor(Math.random() * 360)
-  return `hsl(${hue}, 70%, 50%)`
+  return `hsl(${hue}, 30%, 50%)`
 }
 
 const getRandomName = (count: number) => {

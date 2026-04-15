@@ -59,14 +59,13 @@ $secondary-shadow: 0px 4px 8px rgba($color-secondary, 0.4);
 $primary-btn-shadow: 0px 4px 16px rgba($color-primary, 0.24);
 $secondary-btn-shadow: 0px 4px 16px rgba($color-secondary, 0.24);
 
-$default-font-family: 'Roboto';
-$default-transition: 0.3s;
+$default-transition: 0.2s;
 $default-border: 1px solid $color-border;
 $default-border-dark: 1px solid $color-border-dark;
 
 // glass effect
-$back-drop-blur: 23.5px;
-$back-drop-color: rgba(#000, 0.8);
+$back-drop-blur: 10px;
+$back-drop-color: rgba($color-primary-dark, 0.05);
 
 // screen breakpoints
 $desktop-breakpoint: 1400px;

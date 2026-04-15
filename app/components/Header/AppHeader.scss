@@ -1,3 +1,5 @@
+// @use '~/sass/configs/variables.scss' as *;
+
 .app-header {
   position: sticky;
   top: 0;
@@ -9,15 +11,40 @@
   .content-wrapper {
     @extend %glass;
     padding: 15px;
-  }
-
-  .app-title {
-    font-size: $font-size-xl;
-    line-height: 1em;
-  }
-  .content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    h1 {
+      font-size: $font-size-xl;
+      line-height: 1em;
+    }
+
+    nav {
+      ul {
+        display: flex;
+
+        li {
+          display: block;
+          padding: 10px;
+          margin-left: 20px;
+          cursor: pointer;
+          @include borderRadius($medium-border-radius);
+          @extend %defaultTransition;
+
+          a {
+            @extend %defaultTransition;
+          }
+
+          &:hover {
+            background: rgba($color-primary, 0.05);
+
+            a {
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
   }
 }

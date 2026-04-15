@@ -28,7 +28,7 @@
 
 %glass {
   @include borderRadius($large-border-radius);
-  background: rgba($color-primary-dark, 0.2);
-  backdrop-filter: blur(10px);
+  background: $back-drop-color;
+  backdrop-filter: blur($back-drop-blur);
   @include boxShadow(0 0 15px rgba($color-primary-dark, 0.6));
 }
