@@ -1,0 +1,78 @@
+// primary color
+$color-primary: #1266fa;
+$color-primary-light: #3a82ff;
+$color-primary-dark: #00122b;
+
+// secondary color
+$color-secondary: #ffb800;
+$color-secondary-light: #ffd83c;
+$color-secondary-dark: #ffa600;
+
+// status colors
+$color-success: #04cea7;
+$color-warning: #ffa600;
+$color-danger: #e9237d;
+
+// text colors
+$color-text-light: #747474;
+$color-text-dark: #2e2f2a;
+
+// border colors
+$color-border-dark: #bdbdbd;
+$color-border: rgba($color-border-dark, 0.5);
+$color-border-success: rgba($color-success, 0.7);
+$color-border-warning: rgba($color-warning, 0.7);
+$color-border-danger: rgba($color-danger, 0.7);
+
+$color-disabled: #c5c5c5;
+$color-white-2: #fbfcfd;
+
+// element bg
+$color-element-bg: #eef7ff;
+$color-element-bg-light: #fbfcfd;
+$color-element-bg-dark: #f3f6f9;
+$color-element-bg-success: rgba($color-success, 0.2);
+$color-element-bg-success-light: rgba($color-success, 0.07);
+$color-element-bg-warning: rgba($color-warning, 0.3);
+$color-element-bg-warning-light: rgba($color-warning, 0.1);
+$color-element-bg-danger: rgba($color-danger, 0.3);
+$color-element-bg-danger-light: rgba($color-danger, 0.04);
+
+// default border radius
+$large-border-radius: 16px;
+$medium-border-radius: 8px;
+$small-border-radius: 4px;
+
+// font sizes
+$font-size-xxl: 36px;
+$font-size-xl: 24px;
+$font-size-lg: 18px;
+$font-size-md: 14px;
+$font-size-sm: 12px;
+$font-size-xs: 10px;
+
+// other default styles
+
+$primary-shadow: 0px 4px 20px rgba(#5e8dcc29, 0.16);
+$secondary-shadow: 0px 4px 8px rgba($color-secondary, 0.4);
+
+$primary-btn-shadow: 0px 4px 16px rgba($color-primary, 0.24);
+$secondary-btn-shadow: 0px 4px 16px rgba($color-secondary, 0.24);
+
+$default-font-family: 'Roboto';
+$default-transition: 0.3s;
+$default-border: 1px solid $color-border;
+$default-border-dark: 1px solid $color-border-dark;
+
+// glass effect
+$back-drop-blur: 23.5px;
+$back-drop-color: rgba(#000, 0.8);
+
+// screen breakpoints
+$desktop-breakpoint: 1400px;
+$mini-desktop-breakpoint: 1200px;
+$laptop-breakpoint: 992px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 575px;
+$mobile-sm-breakpoint: 420px;
+$mobile-xs-breakpoint: 360px;

@@ -1,0 +1,27 @@
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+%defaultTransition {
+  @include transition($default-transition);
+}
+
+%userSelect {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+%appearance {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+%blinking {
+  animation-name: blinking;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+}

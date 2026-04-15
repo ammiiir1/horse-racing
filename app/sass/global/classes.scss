@@ -1,0 +1,296 @@
+@use '../configs/variables.scss' as *;
+@use '../configs/mixins.scss' as *;
+
+// ///////////////////////////////////////////////////// text colors
+//////// txt primary
+.text-primary {
+  color: $color-primary !important;
+}
+.text-primary-light {
+  color: $color-primary-light !important;
+}
+.text-primary-dark {
+  color: $color-primary-dark !important;
+}
+
+//////// bg primary
+.bg-primary {
+  background-color: $color-primary !important;
+}
+.bg-primary-light {
+  background-color: $color-primary-light !important;
+}
+.bg-primary-dark {
+  background-color: $color-primary-dark !important;
+}
+
+//////// text secondary
+.text-secondary {
+  color: $color-secondary !important;
+}
+.text-secondary-light {
+  color: $color-secondary-light !important;
+}
+.text-secondary-dark {
+  color: $color-secondary-dark !important;
+}
+
+//////// bg secondary
+.bg-secondary {
+  background-color: $color-secondary !important;
+}
+.bg-secondary-light {
+  background-color: $color-secondary-light !important;
+}
+.bg-secondary-dark {
+  background-color: $color-secondary-dark !important;
+}
+
+//////// white
+.text-white {
+  color: #fff !important;
+}
+.bg-white {
+  background-color: #fff !important;
+}
+/////// black
+.text-black {
+  color: #000 !important;
+}
+
+//////// textStatus
+.text-success {
+  color: $color-success !important;
+}
+.text-warning {
+  color: $color-warning !important;
+}
+.text-danger {
+  color: $color-danger !important;
+}
+
+//////// bgStatus
+.bg-success {
+  background-color: $color-success !important;
+}
+.bg-warning {
+  background-color: $color-warning !important;
+}
+.bg-danger {
+  background-color: $color-danger !important;
+}
+
+//////// other colors
+.text-light {
+  color: $color-text-light !important;
+}
+.text-dark {
+  color: $color-text-dark !important;
+}
+
+//////// element bg
+.element-bg {
+  background-color: $color-element-bg !important;
+}
+.element-bg-light {
+  background-color: $color-element-bg-light !important;
+}
+.element-bg-dark {
+  background-color: $color-element-bg-dark !important;
+}
+.element-bg-success {
+  background-color: $color-element-bg-success !important;
+}
+.element-bg-success-light {
+  background-color: $color-element-bg-success-light !important;
+}
+.element-bg-warning {
+  background-color: $color-element-bg-warning !important;
+}
+.element-bg-warning-light {
+  background-color: $color-element-bg-warning-light !important;
+}
+.element-bg-danger {
+  background-color: $color-element-bg-danger !important;
+}
+.element-bg-danger-light {
+  background-color: $color-element-bg-danger-light !important;
+}
+
+// ///////////////////////////////////////////////////// borderRadius
+.large-border-radius {
+  @include borderRadius($large-border-radius!important);
+}
+.medium-border-radius {
+  @include borderRadius($medium-border-radius!important);
+}
+.small-border-radius {
+  @include borderRadius($small-border-radius!important);
+}
+
+
+// ///////////////////////////////////////////////////// font sizes
+.font-size-xxl {
+  font-size: $font-size-xxl !important;
+}
+.font-size-xl {
+  font-size: $font-size-xl !important;
+}
+.font-size-lg {
+  font-size: $font-size-lg !important;
+}
+.font-size-md {
+  font-size: $font-size-md !important;
+}
+.font-size-sm {
+  font-size: $font-size-sm !important;
+}
+.font-size-xs {
+  font-size: $font-size-xs !important;
+}
+
+// ///////////////////////////////////////////////////// text align
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.text-left {
+  text-align: left !important;
+}
+
+// ///////////////////////////////////////////////////// borers
+.border {
+  border: $default-border;
+}
+.border-none {
+  border-color: transparent !important;
+}
+.border-top {
+  border-top: $default-border;
+}
+.border-bottom {
+  border-bottom: $default-border;
+}
+.border-left {
+  border-left: $default-border;
+}
+.border-right {
+  border-right: $default-border;
+}
+
+.border,
+.border-top,
+.border-bottom,
+.border-left,
+.border-right {
+  // color
+  &.border-dark {
+    border-color: $color-border-dark;
+  }
+  &.border-success {
+    border-color: $color-border-success;
+  }
+  &.border-warning {
+    border-color: $color-border-warning;
+  }
+  &.border-danger {
+    border-color: $color-border-danger;
+  }
+
+  // style
+  &.dashed-borders {
+    border-style: dashed;
+  }
+}
+
+// ///////////////////////////////////////////////////// box shadow
+.primary-shadow {
+  @include boxShadow($primary-shadow);
+}
+
+.secondary-shadow {
+  @include boxShadow($secondary-shadow);
+}
+
+.no-shadow {
+  @include boxShadow(none!important);
+}
+
+// ///////////////////////////////////////////////////// other styles
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.no-wrap-txt {
+  white-space: nowrap;
+}
+
+.single-line-txt {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  line-clamp: 1 !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.font-weight-bolder {
+  font-weight: bolder;
+}
+
+.table-wrapper {
+  margin: 0 -15px;
+}
+
+.w-100 {
+  width: 100%;
+}
+.w-25 {
+  width: 25%;
+}
+.w-50 {
+  width: 50%;
+}
+.h-100 {
+  height: 100%;
+}
+
+.lh-0 {
+  line-height: 0;
+}
+
+// /////////////////////////////////////////////////////////// animations
+.rotating {
+  -webkit-animation: rotating 1s linear infinite;
+  -moz-animation: rotating 1s linear infinite;
+  -ms-animation: rotating 1s linear infinite;
+  -o-animation: rotating 1s linear infinite;
+  animation: rotating 1s linear infinite;
+}
+
+.slow-rotating {
+  -webkit-animation: spin 3s linear infinite;
+  -moz-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
