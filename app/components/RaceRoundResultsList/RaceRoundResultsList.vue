@@ -11,12 +11,7 @@
 
           <el-table-column prop="name" label="Name" min-width="180">
             <template #default="{ row }">
-              <span>{{ row.horseId }} </span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="time" label="Time" min-width="100">
-            <template #default="{ row }">
-              <span>{{ row.time }} </span>
+              <span>{{ row.horse.name }}</span>
             </template>
           </el-table-column>
         </el-table>

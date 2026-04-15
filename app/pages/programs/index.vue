@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { genRaceProgram } from '~/lib/race'
+import { genRaceProgram } from '~/lib/raceProgram'
 
 const appStore = useAppStore()
 const { racePrograms, horses } = storeToRefs(appStore)

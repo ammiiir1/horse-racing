@@ -98,7 +98,7 @@ const getRandomName = (count: number) => {
   return Array.from(names)
 }
 
-// ///////////////////////////////////////////////////// main function
+// ///////////////////////////////////////////////////// generate horses
 export const genHorses = (count: number): IHorse[] => {
   return Array.from({ length: count }, (_, i) => ({
     id: crypto.randomUUID(),

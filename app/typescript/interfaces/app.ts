@@ -1,5 +1,7 @@
+import type { ID } from '../types/app'
+
 export interface IHorse {
-  id: ReturnType<typeof crypto.randomUUID>
+  id: ID
   name: string
   /** condition: 1-100 */
   condition: number
@@ -8,24 +10,22 @@ export interface IHorse {
   races?: number
   wins?: number
 }
-
 export interface IRaceRound {
-  id: ReturnType<typeof crypto.randomUUID>
+  id: ID
   /** round: 1-6 */
   round: number
   /** length: 1200, 1400, 1600, 1800, 2000, 2200 */
-  length: number 
+  length: number
   isDone: boolean
   startTime: number
   finishTime: number
   results: {
-    horseId: ReturnType<typeof crypto.randomUUID>
-    time: number
+    horse: IHorse
     position: number
   }[]
 }
 export interface IRaceProgram {
-  id: ReturnType<typeof crypto.randomUUID>
+  id: ID
   createdAt: number
   finishedAt: number
   /** horses: 10 horses */
@@ -33,5 +33,18 @@ export interface IRaceProgram {
   /** rounds: an Array of 6 rounds */
   rounds: IRaceRound[]
   isDone: boolean
-  winner?: ReturnType<typeof crypto.randomUUID>
+  winner?: IHorse
+}
+
+export interface IHorseRaceData extends IHorse{
+  xPos: number
+  todaysCondition: number
+}
+
+export interface IRaceStatus {
+  totalTime: number
+  spentTime: number
+  roundData: IRaceRound | undefined
+  horsesData: IHorseRaceData[]
+  isStarted: boolean
 }

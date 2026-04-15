@@ -32,6 +32,19 @@
       svg {
         width: 60px;
         vertical-align: text-bottom;
+        position: absolute;
+        top: 50%;
+        @include transform(translateY(-50%));
+        left: 0;
+      }
+
+      .horse-name {
+        display: block;
+        position: absolute;
+        top: 3px;
+        right: 5px;
+        font-size: $font-size-sm;
+        color: $color-primary;
       }
     }
   }

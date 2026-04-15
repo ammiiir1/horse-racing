@@ -3,7 +3,8 @@
     xmlns="http://www.w3.org/2000/svg"
     version="1.1"
     viewBox="0 0 800 800"
-    :class="['horse-vector', isRunning && 'running']"
+    :class="['horse-vector', raceStatus.isStarted && 'running']"
+    :style="{ left: xPos || '0' }"
   >
     <path
       id="horse-pos-2"
@@ -19,9 +20,12 @@
 </template>
 
 <script setup lang="ts">
+const { raceStatus } = storeToRefs(useAppStore())
+
+// /////////////////////////////////////////////////////// props
 defineProps<{
   color: string
-  isRunning: boolean
+  xPos: string
 }>()
 </script>
 
