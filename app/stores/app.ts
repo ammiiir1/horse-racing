@@ -143,6 +143,10 @@ export const useAppStore = defineStore('app', {
         // clear backup
         this.raceProgramsBackup = []
         this.horsesBackup = []
+
+        // tell client race is finished and change route to programs list
+        await ElMessageBox.alert('Race Finished!', { type: 'success' })
+        useRouter().push({ name: 'programs' })
       } catch (err) {}
     },
 
