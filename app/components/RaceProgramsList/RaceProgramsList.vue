@@ -16,7 +16,7 @@
           </div>
           <div class="col-6">
             <p class="text-white text-left">Results:</p>
-            <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius" height="400px" />
+            <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius"  />
           </div>
 
           <div v-if="!program.isDone" class="col-12 text-center mt-3">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card">
-      <HorsesList :horses="horses" />
+      <HorsesList :horses="horses" :height="650" />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="horses" style="width: 100%" height="400">
+  <el-table :data="horses" style="width: 100%" :height="height || 400">
     <el-table-column type="index" label="#" width="80" />
     <el-table-column prop="name" label="Name" min-width="180" />
     <el-table-column prop="color" label="Color" min-width="100">
@@ -26,6 +26,7 @@ import type { IHorse } from '~/typescript/interfaces/app'
 
 defineProps<{
   horses: IHorse[]
+  height?: number
 }>()
 </script>
 

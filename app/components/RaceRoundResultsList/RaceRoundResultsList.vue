@@ -1,5 +1,5 @@
 <template>
-  <div class="race-round-results" :style="{ height: height || '100%' }">
+  <div class="race-round-results" :style="{ height: height || '400px' }">
     <el-scrollbar class="scrollbar">
       <div v-for="round in rounds" :key="round.id" class="result-wrapper">
         <div class="round-details">
