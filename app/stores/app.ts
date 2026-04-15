@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { genHorses } from '~/lib/horse'
 import { genRaceProgram } from '~/lib/raceProgram'
-import type { IHorse, IRaceProgram, IRaceStatus } from '~/typescript/interfaces/app'
+import type { IHorse, IRaceProgram, IRaceRound, IRaceStatus } from '~/typescript/interfaces/app'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -27,8 +27,18 @@ export const useAppStore = defineStore('app', {
       this.racePrograms.push(newProgram)
     },
 
-    setRacePrograms(racePrograms: IRaceProgram[]) {
-      this.racePrograms = racePrograms
+    updateProgramsWithActiveProgram(payload?: { activeProgramRounds?: IRaceRound[]; activeProgramIsDone?: boolean }) {
+      const allPrograms = this.racePrograms.map((item) => {
+        if (item.id === this.activeRaceProgram?.id) {
+          const tmpData = {
+            ...item,
+            isDone: payload?.activeProgramIsDone || false
+          } as IRaceProgram
+          if (payload?.activeProgramRounds) tmpData.rounds = payload.activeProgramRounds
+          return tmpData
+        } else return item
+      })
+      this.racePrograms = allPrograms
     },
 
     setRaceStatus(payload?: Partial<IRaceStatus>) {

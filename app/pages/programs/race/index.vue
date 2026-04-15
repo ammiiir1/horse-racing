@@ -34,7 +34,7 @@
 import type { IRaceProgram, IRaceRound } from '~/typescript/interfaces/app'
 
 const { racePrograms, raceStatus, activeRaceProgram } = storeToRefs(useAppStore())
-const { setRaceStatus, setRacePrograms, setActiveRaceProgram } = useAppStore()
+const { setRaceStatus, updateProgramsWithActiveProgram, setActiveRaceProgram } = useAppStore()
 const route = useRoute()
 
 // /////////////////////////////////////////////////////// states
@@ -42,19 +42,6 @@ const route = useRoute()
 // /////////////////////////////////////////////////////// computed
 
 // /////////////////////////////////////////////////////// methods
-const updateProgramsList = (payload?: { currentProgramRounds?: IRaceRound[]; currentProgramIsDone?: boolean }) => {
-  const allPrograms = racePrograms.value.map((item) => {
-    if (item.id === activeRaceProgram.value?.id) {
-      const tmpData = {
-        ...item,
-        isDone: payload?.currentProgramIsDone || false
-      } as IRaceProgram
-      if (payload?.currentProgramRounds) tmpData.rounds = payload.currentProgramRounds
-      return tmpData
-    } else return item
-  })
-  setRacePrograms(allPrograms)
-}
 
 const startRound = () => {
   return new Promise((resolve, reject) => {
@@ -87,14 +74,14 @@ const startRound = () => {
           pos++
         }
 
-        // update raceProgram data (current program)
-        const currentProgramRounds = activeRaceProgram.value?.rounds.map((item) => {
+        // update racePrograms data with activeProgram updates
+        const activeProgramRounds = activeRaceProgram.value?.rounds.map((item) => {
           if (item.id === roundDataClone.id) return roundDataClone
           else return item
-        })
+        }) as IRaceRound[]
 
         // update race programs list
-        updateProgramsList({ currentProgramRounds: currentProgramRounds || [] })
+        updateProgramsWithActiveProgram({ activeProgramRounds })
 
         // resolve promise - ready for next round ;)
         resolve(true)
@@ -117,7 +104,7 @@ const startRace = async () => {
     }
 
     setRaceStatus({ isStarted: false })
-    updateProgramsList({ currentProgramIsDone: true })
+    updateProgramsWithActiveProgram({ activeProgramIsDone: true })
   } catch (err) {}
 }
 
