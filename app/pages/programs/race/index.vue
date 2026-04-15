@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 const { racePrograms, raceStatus, activeRaceProgram } = storeToRefs(useAppStore())
-const { setRaceStatus, setActiveRaceProgram, startRace } = useAppStore()
+const { setRaceStatus, setActiveRaceProgram, startRace, stopRace } = useAppStore()
 const route = useRoute()
 
 // /////////////////////////////////////////////////////// states
@@ -52,6 +52,24 @@ onMounted(() => {
 
   // second step: reset race status data (this method uses activeRaceProgram data inside it, so first we need to fill ActiveRaceProgram data)
   setRaceStatus()
+})
+
+// ////////////////////////////////////////////////// on route leave
+onBeforeRouteLeave(async (to, from) => {
+  if (raceStatus.value.isStarted) {
+    try {
+      await ElMessageBox.confirm('Racing is running, do you want to stop it and quit?', {
+        type: 'warning',
+        confirmButtonText: 'QUIT',
+        confirmButtonType: 'danger',
+        cancelButtonText: 'Cancel'
+      })
+      stopRace()
+      return true
+    } catch (err) {
+      return false
+    }
+  } else return true
 })
 </script>
 

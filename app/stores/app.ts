@@ -6,7 +6,9 @@ import type { IHorse, IRaceProgram, IRaceRound, IRaceStatus } from '~/typescript
 export const useAppStore = defineStore('app', {
   state: () => ({
     horses: [] as IHorse[],
+    horsesBackup: [] as IHorse[],
     racePrograms: [] as IRaceProgram[],
+    raceProgramsBackup: [] as IRaceProgram[],
     raceStatus: {
       horsesData: [],
       roundData: undefined,
@@ -119,6 +121,10 @@ export const useAppStore = defineStore('app', {
     },
 
     async startRace() {
+      // get backup
+      this.raceProgramsBackup = JSON.parse(JSON.stringify(this.racePrograms))
+      this.horsesBackup = JSON.parse(JSON.stringify(this.horses))
+
       try {
         for await (const round of this.activeRaceProgram?.rounds || []) {
           this.setRaceStatus({
@@ -133,7 +139,25 @@ export const useAppStore = defineStore('app', {
 
         this.setRaceStatus({ isStarted: false })
         this.updateProgramsWithActiveProgram({ activeProgramIsDone: true })
+
+        // clear backup
+        this.raceProgramsBackup = []
+        this.horsesBackup = []
       } catch (err) {}
+    },
+
+    stopRace() {
+      if (!this.raceStatus.isStarted) return
+
+      // kill interval
+      clearTimeout(this.raceInterval)
+
+      // reset raceStatus
+      this.setRaceStatus()
+
+      // restore backup
+      this.horses = JSON.parse(JSON.stringify(this.horsesBackup))
+      this.racePrograms = JSON.parse(JSON.stringify(this.raceProgramsBackup))
     }
   }
 })
