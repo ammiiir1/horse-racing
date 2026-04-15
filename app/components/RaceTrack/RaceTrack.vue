@@ -15,9 +15,6 @@
 import type { IHorseRaceData } from '~/typescript/interfaces/app'
 const { raceStatus } = storeToRefs(useAppStore())
 
-// /////////////////////////////////////////////// props
-const props = defineProps<{}>()
-
 // /////////////////////////////////////////////// methods
 const getHorsePos = (horse: IHorseRaceData) => {
   const xPos = (100 * horse.xPos) / raceStatus.value.totalTime

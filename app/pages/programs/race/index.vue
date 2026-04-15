@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IHorse, IHorseRaceData, IRaceProgram, IRaceRound, IRaceStatus } from '~/typescript/interfaces/app'
+import type { IRaceProgram, IRaceRound } from '~/typescript/interfaces/app'
 
 const { racePrograms, raceStatus, activeRaceProgram } = storeToRefs(useAppStore())
 const { setRaceStatus, setRacePrograms, setActiveRaceProgram } = useAppStore()
