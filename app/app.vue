@@ -1,24 +1,11 @@
 <template>
-  <div>
+  <ClientOnly>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-  </div>
+  </ClientOnly>
 </template>
 
-<script setup lang="ts">
-import { genHorses } from '~/lib/horse'
-const { setHorses } = useAppStore()
-
-// /////////////////////////////////////////////////// methods
-const generateHorseLists = () => {
-  const horses = genHorses(20)
-  setHorses(horses)
-}
-// /////////////////////////////////////////////////// run at app init
-onMounted(() => {
-  generateHorseLists()
-})
-</script>
+<script setup lang="ts"></script>
 
 <style src="@/sass/global/index.scss" lang="scss"></style>

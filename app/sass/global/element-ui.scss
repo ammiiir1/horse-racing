@@ -782,3 +782,33 @@
     }
   }
 }
+
+.el-collapse {
+  border: none !important;
+  background: transparent !important;
+
+  .el-collapse-item {
+    border: none !important;
+    background: transparent !important;
+    @include borderRadius($large-border-radius);
+    overflow: hidden;
+    margin-bottom: 10px;
+
+    .el-collapse-item__header {
+      background: rgba($color-primary-dark, 0.1) !important;
+      @include borderRadius($small-border-radius);
+      padding: 1rem !important;
+      color: $color-text-dark !important;
+    }
+
+    .el-collapse-item__content {
+      border-top: unset !important;
+      padding: 1rem !important;
+      background: rgba($color-primary-dark, 0.1) !important;
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+}

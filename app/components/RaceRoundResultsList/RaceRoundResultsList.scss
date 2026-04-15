@@ -1,0 +1,33 @@
+.race-round-results {
+  height: 400px;
+  @include borderRadius($large-border-radius);
+  overflow: hidden;
+
+  .el-scrollbar {
+    height: 100%;
+  }
+
+  .result-wrapper {
+    @include borderRadius($large-border-radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    .round-details {
+      background: $color-danger;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+
+      span {
+        color: #fff;
+      }
+    }
+
+    .el-table {
+      .el-table__cell {
+        padding: 3px !important;
+      }
+    }
+  }
+}

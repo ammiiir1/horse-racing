@@ -31,4 +31,5 @@
   background: $back-drop-color;
   backdrop-filter: blur($back-drop-blur);
   @include boxShadow(0 0 15px rgba($color-primary-dark, 0.6));
+  overflow: hidden;
 }

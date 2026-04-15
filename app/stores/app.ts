@@ -1,14 +1,20 @@
 import { defineStore } from 'pinia'
-import type { IHorse } from '~/typescript/interfaces/app'
+import { genHorses } from '~/lib/horse'
+import type { IHorse, IRaceProgram } from '~/typescript/interfaces/app'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    horses: [] as IHorse[]
+    horses: [] as IHorse[],
+    racePrograms: [] as IRaceProgram[]
   }),
 
   actions: {
-    setHorses(horses: IHorse[]) {
-      this.horses = horses
+    generateHorses() {
+      this.horses = genHorses(20)
+    },
+
+    setRacePrograms(racePrograms: IRaceProgram[]) {
+      this.racePrograms = racePrograms
     }
   }
 })
