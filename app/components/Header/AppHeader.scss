@@ -3,12 +3,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 15px;
+  padding-block: 15px;
+  z-index: 20;
 
   .content-wrapper {
-    @include borderRadius($large-border-radius);
-    padding: 15px;
     @extend %glass;
+    padding: 15px;
   }
 
   .app-title {

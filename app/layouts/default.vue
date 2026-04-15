@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <AppHeader />
-    <slot />
+    <main class="mt-4 pb-3">
+      <slot />
+    </main>
   </div>
 </template>
 

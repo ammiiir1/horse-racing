@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
+  app: {
+    head: {
+      title: 'Horse Racing',
+      link: [{ rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap-grid.css' }]
+    }
+  },
   modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt'],
   vite: {
     css: {

@@ -1,5 +1,6 @@
 @use '../configs/variables.scss' as *;
 @use '../configs/mixins.scss' as *;
+@use '../configs/inheritances.scss' as *;
 
 // ///////////////////////////////////////////////////// text colors
 //////// txt primary
@@ -128,7 +129,6 @@
   @include borderRadius($small-border-radius!important);
 }
 
-
 // ///////////////////////////////////////////////////// font sizes
 .font-size-xxl {
   font-size: $font-size-xxl !important;
@@ -228,7 +228,7 @@
 }
 
 .overflow-hidden {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .no-wrap-txt {
@@ -278,6 +278,10 @@
 
 .lh-0 {
   line-height: 0;
+}
+
+.glass {
+  @extend %glass;
 }
 
 // /////////////////////////////////////////////////////////// animations
