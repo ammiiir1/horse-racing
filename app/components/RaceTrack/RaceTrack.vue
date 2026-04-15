@@ -3,7 +3,7 @@
     <div v-for="(horse, index) in horses" :key="horse.id" class="lane">
       <div class="lane-number">{{ index + 1 }}</div>
       <div class="lane-path">
-        <RunningHorseVector :color="horse.color" />
+        <RunningHorseVector :color="horse.color" :is-running="false"/>
       </div>
     </div>
   </div>

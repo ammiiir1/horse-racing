@@ -1,5 +1,10 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    viewBox="0 0 800 800"
+    :class="['horse-vector', isRunning && 'running']"
+  >
     <path
       id="horse-pos-2"
       :fill="color"
@@ -16,6 +21,7 @@
 <script setup lang="ts">
 defineProps<{
   color: string
+  isRunning: boolean
 }>()
 </script>
 
