@@ -7,8 +7,8 @@ export interface IHorse {
   condition: number
   /** color: any valid css color */
   color: string
-  races?: number
-  wins?: number
+  races: number
+  wins: number
 }
 export interface IRaceRound {
   id: ID
@@ -36,7 +36,7 @@ export interface IRaceProgram {
   winner?: IHorse
 }
 
-export interface IHorseRaceData extends IHorse{
+export interface IHorseRaceData extends IHorse {
   xPos: number
   todaysCondition: number
 }

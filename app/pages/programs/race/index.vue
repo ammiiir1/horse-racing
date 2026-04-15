@@ -1,7 +1,9 @@
 <template>
   <div v-if="activeRaceProgram" class="row align-items-stretch">
     <div class="col-12 mb-3">
-      <div class="glass card p-3 d-flex align-items-center justify-content-between">
+      <div
+        :class="['glass card p-3 d-flex align-items-center justify-content-between', raceStatus.isStarted && 'py-4']"
+      >
         <template v-if="!raceStatus.isStarted">
           <b class="text-dark">Ready to go?</b>
           <el-button class="px-5 ms-2" size="large" type="primary" @click="startRace"> Start! </el-button>

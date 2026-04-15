@@ -101,6 +101,16 @@ export const useAppStore = defineStore('app', {
             // update race programs list
             this.updateProgramsWithActiveProgram({ activeProgramRounds })
 
+            // update horse races count
+            for (const item of this.activeRaceProgram?.horses || []) {
+              const horse = this.horses.find((h) => h.id === item.id)
+              if (horse) horse.races++
+            }
+
+            // update horse wins count
+            const horse_winned = this.horses.find((h) => h.id === this.raceStatus.roundData?.results[0]?.horse.id)
+            if (horse_winned) horse_winned.wins++
+
             // resolve promise - ready for next round ;)
             resolve(true)
           }

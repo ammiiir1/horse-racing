@@ -6,12 +6,13 @@
           <span>Round {{ round.round }}</span>
           <span>{{ round.length }}m</span>
         </div>
-        <el-table :data="round.results" style="width: 100%">
-          <el-table-column prop="position" label="Position" width="120" />
 
-          <el-table-column prop="name" label="Name" min-width="180">
+        <el-table :data="round.results" style="width: 100%">
+          <el-table-column prop="position" label="Position" width="70" />
+
+          <el-table-column prop="name" label="Name" min-width="130">
             <template #default="{ row }">
-              <span>{{ row.horse.name }}</span>
+              <span class="d-block">{{ row.horse.name }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -21,10 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import type { IHorse, IRaceRound } from '~/typescript/interfaces/app'
+import type { IRaceRound } from '~/typescript/interfaces/app'
 
+// ///////////////////////////////////////////////////// props
 defineProps<{
-  horses: IHorse[]
   rounds: IRaceRound[]
   height?: string
 }>()

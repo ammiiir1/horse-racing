@@ -104,6 +104,8 @@ export const genHorses = (count: number): IHorse[] => {
     id: crypto.randomUUID(),
     name: getRandomName(count)[i] || `Horse ${i + 1}`,
     condition: Math.floor(Math.random() * 100) + 1,
-    color: genRandomColor()
+    color: genRandomColor(),
+    races: 0,
+    wins: 0
   }))
 }
