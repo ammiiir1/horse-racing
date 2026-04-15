@@ -3,11 +3,10 @@
     <div v-for="(horse, index) in raceStatus.horsesData" :key="horse.id" class="lane">
       <div class="lane-number">{{ index + 1 }}</div>
 
-        <div class="lane-path">
-          <RunningHorseVector :color="horse.color" :x-pos="getHorsePos(horse)" />
-          <span class="horse-name">{{ horse.name }}</span>
-        </div>
-
+      <div class="lane-path">
+        <RunningHorseVector :color="horse.color" :x-pos="getHorsePos(horse)" />
+        <span class="horse-name">{{ horse.name }}</span>
+      </div>
     </div>
   </div>
 </template>

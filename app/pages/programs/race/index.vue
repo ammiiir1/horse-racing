@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentProgram" class="row align-items-stretch">
+  <div v-if="activeRaceProgram" class="row align-items-stretch">
     <div class="col-12 mb-3">
       <div class="glass card p-3 d-flex align-items-center justify-content-between">
         <template v-if="!raceStatus.isStarted">
@@ -12,17 +12,15 @@
         </template>
       </div>
     </div>
-    <!-- <div class="col-12">
-      <pre>{{ currentProgram }}</pre>
-    </div> -->
+
     <div class="col-8">
       <div class="glass card p-3">
-        <RaceTrack :horses="horses" :horses-position="horsesPosition" :active-round="activeRound" />
+        <RaceTrack />
       </div>
     </div>
     <div class="col-4">
       <div class="glass card p-3">
-        <RaceRoundResultsList :rounds="currentProgram.rounds" :horses="currentProgram.horses" height="76vh" />
+        <RaceRoundResultsList :rounds="activeRaceProgram.rounds" :horses="activeRaceProgram.horses" height="76vh" />
       </div>
     </div>
   </div>
@@ -35,40 +33,18 @@
 <script setup lang="ts">
 import type { IHorse, IHorseRaceData, IRaceProgram, IRaceRound, IRaceStatus } from '~/typescript/interfaces/app'
 
-const { racePrograms, raceStatus } = storeToRefs(useAppStore())
-const { setRaceStatus, setRacePrograms } = useAppStore()
+const { racePrograms, raceStatus, activeRaceProgram } = storeToRefs(useAppStore())
+const { setRaceStatus, setRacePrograms, setActiveRaceProgram } = useAppStore()
 const route = useRoute()
 
 // /////////////////////////////////////////////////////// states
-const horsesPosition = reactive<IHorseRaceData[]>([])
-const activeRound = ref<IRaceRound>()
 
 // /////////////////////////////////////////////////////// computed
-const currentProgram = computed(() => {
-  const pid = route.query.pid as string
-  return racePrograms.value.find((program) => program.id === pid)
-})
-
-const horses = computed(() => currentProgram.value?.horses || [])
 
 // /////////////////////////////////////////////////////// methods
-const updateRaceStatusData = (payload?: Partial<IRaceStatus>) => {
-  const tempData: IRaceStatus = {
-    horsesData: [],
-    roundData: payload?.roundData,
-    isStarted: payload?.isStarted || false,
-    totalTime: payload?.totalTime || 0,
-    spentTime: payload?.totalTime || 0
-  }
-  for (const item of currentProgram.value?.horses || []) {
-    tempData.horsesData.push({ ...item, xPos: 0, todaysCondition: (Math.random() - Math.random()) * 10 })
-  }
-  setRaceStatus(tempData)
-}
-
 const updateProgramsList = (payload?: { currentProgramRounds?: IRaceRound[]; currentProgramIsDone?: boolean }) => {
   const allPrograms = racePrograms.value.map((item) => {
-    if (item.id === currentProgram.value?.id) {
+    if (item.id === activeRaceProgram.value?.id) {
       const tmpData = {
         ...item,
         isDone: payload?.currentProgramIsDone || false
@@ -112,7 +88,7 @@ const startRound = () => {
         }
 
         // update raceProgram data (current program)
-        const currentProgramRounds = currentProgram.value?.rounds.map((item) => {
+        const currentProgramRounds = activeRaceProgram.value?.rounds.map((item) => {
           if (item.id === roundDataClone.id) return roundDataClone
           else return item
         })
@@ -129,8 +105,8 @@ const startRound = () => {
 
 const startRace = async () => {
   try {
-    for await (const round of currentProgram.value?.rounds || []) {
-      updateRaceStatusData({
+    for await (const round of activeRaceProgram.value?.rounds || []) {
+      setRaceStatus({
         isStarted: true,
         roundData: round,
         totalTime: round.length * 10,
@@ -140,14 +116,20 @@ const startRace = async () => {
       await startRound()
     }
 
-    updateRaceStatusData({ isStarted: false })
+    setRaceStatus({ isStarted: false })
     updateProgramsList({ currentProgramIsDone: true })
   } catch (err) {}
 }
 
 // ////////////////////////////////////////////////// on mounted
 onMounted(() => {
-  updateRaceStatusData()
+  // first step: fill activeRaceProgram data using id param passed in the route
+  const pid = route.query.pid as string
+  const raceProgram = racePrograms.value.find((program) => program.id === pid)
+  if (raceProgram) setActiveRaceProgram(raceProgram)
+
+  // second step: reset race status data (this method uses activeRaceProgram data inside it, so first we need to fill ActiveRaceProgram data)
+  setRaceStatus()
 })
 </script>
 
