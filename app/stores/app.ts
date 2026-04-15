@@ -14,7 +14,8 @@ export const useAppStore = defineStore('app', {
       spentTime: 0,
       isStarted: false
     } as IRaceStatus,
-    activeRaceProgram: undefined as IRaceProgram | undefined
+    activeRaceProgram: undefined as IRaceProgram | undefined,
+    raceInterval: undefined as number | undefined
   }),
 
   actions: {
@@ -58,6 +59,71 @@ export const useAppStore = defineStore('app', {
 
     setActiveRaceProgram(payload: IRaceProgram) {
       this.activeRaceProgram = payload
+    },
+
+    startRound() {
+      return new Promise((resolve, reject) => {
+        // ////////////////////////// start race interval
+        this.raceStatus.spentTime = 0
+        this.raceInterval = setInterval(() => {
+          // increase spentTime
+          this.raceStatus.spentTime += 100
+
+          // update horse movement position
+          for (const item of this.raceStatus?.horsesData || []) {
+            const movementRate = item.condition + item.todaysCondition
+            item.xPos = item.xPos + (movementRate > 0 ? movementRate : Math.random() * 100 + 20)
+          }
+
+          // finish round
+          if (this.raceStatus.spentTime >= this.raceStatus.totalTime) {
+            // kill interval
+            clearInterval(this.raceInterval)
+
+            // sort horse data by their positions
+            this.raceStatus.horsesData.sort((a, b) => b.xPos - a.xPos)
+
+            // fill round results array with race data
+            const roundData = this.raceStatus.roundData
+
+            let pos = 1
+            for (const item of this.raceStatus.horsesData) {
+              roundData?.results?.push({ horse: item, position: pos })
+              pos++
+            }
+
+            // update racePrograms data with activeProgram updates
+            const activeProgramRounds = this.activeRaceProgram?.rounds.map((item) => {
+              if (item.id === roundData?.id) return roundData
+              else return item
+            }) as IRaceRound[]
+
+            // update race programs list
+            this.updateProgramsWithActiveProgram({ activeProgramRounds })
+
+            // resolve promise - ready for next round ;)
+            resolve(true)
+          }
+        }, 100)
+      })
+    },
+
+    async startRace() {
+      try {
+        for await (const round of this.activeRaceProgram?.rounds || []) {
+          this.setRaceStatus({
+            isStarted: true,
+            roundData: round,
+            totalTime: round.length * 10,
+            spentTime: 0
+          })
+
+          await this.startRound()
+        }
+
+        this.setRaceStatus({ isStarted: false })
+        this.updateProgramsWithActiveProgram({ activeProgramIsDone: true })
+      } catch (err) {}
     }
   }
 })
