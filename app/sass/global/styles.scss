@@ -12,6 +12,9 @@ body {
   min-width: 320px;
   font-family: var(--font-family);
   background-color: #fff;
+  background-image: url('~/assets/bg.jpg');
+  background-position: center;
+  background-size: cover;
   box-sizing: border-box;
   overflow-x: hidden;
 }

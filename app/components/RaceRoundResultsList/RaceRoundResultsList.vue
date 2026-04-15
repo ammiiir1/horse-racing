@@ -1,5 +1,5 @@
 <template>
-  <div class="race-round-results">
+  <div class="race-round-results" :style="{ height: height || '100%' }">
     <el-scrollbar class="scrollbar">
       <div v-for="round in rounds" :key="round.id" class="result-wrapper">
         <div class="round-details">
@@ -31,6 +31,7 @@ import type { IHorse, IRaceRound } from '~/typescript/interfaces/app'
 defineProps<{
   horses: IHorse[]
   rounds: IRaceRound[]
+  height?: string
 }>()
 </script>
 

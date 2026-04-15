@@ -1,0 +1,23 @@
+@keyframes run {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+#horse-pos-1,
+#horse-pos-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  animation: run 1.1s infinite;
+}
+
+#horse-pos-2 {
+  animation-delay: 0.3s;
+}

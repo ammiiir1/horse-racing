@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="glass">
+    <div class="card">
       <HorsesList :horses="horses" />
     </div>
   </div>

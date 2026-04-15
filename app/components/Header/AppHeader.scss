@@ -9,6 +9,7 @@
   z-index: 20;
 
   .content-wrapper {
+    @extend %card;
     @extend %glass;
     padding: 15px;
     display: flex;

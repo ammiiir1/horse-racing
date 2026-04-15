@@ -284,6 +284,10 @@
   @extend %glass;
 }
 
+.card {
+  @extend %card;
+}
+
 // /////////////////////////////////////////////////////////// animations
 .rotating {
   -webkit-animation: rotating 1s linear infinite;
