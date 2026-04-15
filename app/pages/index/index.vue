@@ -1,9 +1,5 @@
 <template>
-  <div class="ss">
-<span class="font-size-xl">    hello world
-</span>
-    <el-button type="primary">Click me</el-button>
-  </div>
+  <div>hi</div>
 </template>
 
 <script setup lang="ts"></script>

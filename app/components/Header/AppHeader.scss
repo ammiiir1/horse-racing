@@ -1,0 +1,23 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+
+  .content-wrapper {
+    @include borderRadius($large-border-radius);
+    padding: 15px;
+    @extend %glass;
+  }
+
+  .app-title {
+    font-size: $font-size-xl;
+    line-height: 1em;
+  }
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
