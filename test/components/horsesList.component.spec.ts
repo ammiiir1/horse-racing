@@ -16,7 +16,7 @@ describe('HorsesList component render test', () => {
   const horse2 = mockHorse({ id: 'h2' as ID })
   const mockHorsesList = [horse1, horse2]
 
-  it('should renders the horses list provided via props', async () => {
+  it('should render the horses list provided via props', async () => {
     const component = await mountSuspended(HorsesList, {
       props: { horses: mockHorsesList }
     })
@@ -26,7 +26,7 @@ describe('HorsesList component render test', () => {
     expect(component.findAll('.el-table__row')).toHaveLength(mockHorsesList.length)
   })
 
-  it('it renders horses from composable if raceProgramId is provided', async () => {
+  it('should render horses from composable if raceProgramId is provided', async () => {
     const component = await mountSuspended(HorsesList, {
       props: { raceProgramId: 'some-id' as ID }
     })
