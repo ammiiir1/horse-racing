@@ -11,12 +11,22 @@ body {
   padding: 15px;
   min-width: 320px;
   font-family: var(--font-family);
-  background-color: #fff;
-  background-image: url('~/assets/bg.jpg');
-  background-position: center;
-  background-size: cover;
   box-sizing: border-box;
   overflow-x: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: url('~/assets/bg.jpg');
+    background-position: center;
+    background-size: cover;
+  }
 }
 
 * {
