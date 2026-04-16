@@ -20,7 +20,7 @@ export interface IRaceRound {
   startTime: number
   finishTime: number
   results: {
-    horseId: ID 
+    horseId: ID
     position: number
   }[]
 }
@@ -33,7 +33,6 @@ export interface IRaceProgram {
   /** rounds: an Array of 6 rounds */
   rounds: IRaceRound[]
   isDone: boolean
-  winner?: ID
 }
 
 export interface IHorseRaceData extends IHorse {
