@@ -1,6 +1,14 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "files": [],
+  "compilerOptions": {
+    "types": ["vitest", "./test/types/matchers"],
+    "paths": {
+      "@/*": ["./app/*"],
+      "~/*": ["./app/*"]
+    }
+  },
+  "include": ["test", "test/types/**/*.d.ts", "**/*.ts"],
   "references": [
     {
       "path": "./.nuxt/tsconfig.app.json"

@@ -1,10 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useAppStore } from '../../../app/stores/app'
-// import { useAppStore } from '../../app/lib/horse'
+import { useAppStore } from '@/stores/app'
 import { mockHorse } from '../../helpers/mockData'
 
-describe('App Store', () => {
+describe('AppStore Test', () => {
   setActivePinia(createPinia())
   const store = useAppStore()
 

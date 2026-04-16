@@ -18,7 +18,7 @@ export const useAppStore = defineStore('app', {
       isStarted: false
     } as IRaceStatus,
     activeRaceProgram: undefined as IRaceProgram | undefined,
-    raceInterval: undefined as number | undefined
+    raceInterval: undefined as NodeJS.Timeout | undefined
   }),
 
   actions: {
