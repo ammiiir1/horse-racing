@@ -9,8 +9,7 @@ const genRaceRounds = () => {
     rounds.push({
       id: crypto.randomUUID(),
       round: rounds.length + 1,
-      // length: 1200 + rounds.length * 200,
-      length: 120 + rounds.length * 50,
+      length: 1200 + rounds.length * 200,
       isDone: false,
       startTime: 0,
       finishTime: 0,
