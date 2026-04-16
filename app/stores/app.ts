@@ -34,6 +34,25 @@ export const useAppStore = defineStore('app', {
       this.racePrograms.push(newProgram)
     },
 
+    getBackup() {
+      this.horsesBackup = JSON.parse(JSON.stringify(Array.from(this.horses.values())))
+      this.raceProgramsBackup = JSON.parse(JSON.stringify(this.racePrograms))
+    },
+
+    clearBackup() {
+      this.horsesBackup = []
+      this.raceProgramsBackup = []
+    },
+
+    restoreBackup() {
+      this.horses.clear()
+      for (const h of this.horsesBackup) {
+        this.horses.set(h.id, h)
+      }
+      this.racePrograms = [...this.raceProgramsBackup]
+      this.clearBackup()
+    },
+
     updateProgramsWithActiveProgram(payload?: { activeProgramRounds?: IRaceRound[]; activeProgramIsDone?: boolean }) {
       const allPrograms = this.racePrograms.map((item) => {
         if (item.id === this.activeRaceProgram?.id) {
@@ -133,8 +152,7 @@ export const useAppStore = defineStore('app', {
 
     async startRace() {
       // get backup
-      this.raceProgramsBackup = JSON.parse(JSON.stringify(this.racePrograms))
-      this.horsesBackup = JSON.parse(JSON.stringify(Array.from(this.horses.values())))
+      this.getBackup()
 
       try {
         for await (const round of this.activeRaceProgram?.rounds || []) {
@@ -152,8 +170,7 @@ export const useAppStore = defineStore('app', {
         this.updateProgramsWithActiveProgram({ activeProgramIsDone: true })
 
         // clear backup
-        this.raceProgramsBackup = []
-        this.horsesBackup = []
+        this.clearBackup()
 
         // tell client race is finished and change route to programs list
         await ElMessageBox.alert('Race Finished!', { type: 'success' })
@@ -165,17 +182,13 @@ export const useAppStore = defineStore('app', {
       if (!this.raceStatus.isStarted) return
 
       // kill interval
-      clearTimeout(this.raceInterval)
+      clearInterval(this.raceInterval)
 
       // reset raceStatus
       this.setRaceStatus()
 
       // restore backup
-      this.horses.clear
-      for (const h of JSON.parse(JSON.stringify(this.horsesBackup))) {
-        this.horses.set(h.id, h)
-      }
-      this.racePrograms = JSON.parse(JSON.stringify(this.raceProgramsBackup))
+      this.restoreBackup()
     }
   }
 })
