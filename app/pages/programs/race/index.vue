@@ -15,12 +15,12 @@
       </div>
     </div>
 
-    <div class="col-8">
+    <div class="col-12 col-lg-8 col-xxl-9">
       <div class="glass card p-3">
         <RaceTrack />
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-12 col-lg-4 col-xxl-3 mt-4 mt-lg-0">
       <div class="glass card p-3">
         <RaceRoundResultsList :rounds="activeRaceProgram.rounds" :horses="activeRaceProgram.horses" height="76vh" />
       </div>

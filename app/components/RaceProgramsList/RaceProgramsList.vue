@@ -10,11 +10,11 @@
         </template>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-lg-6">
             <p class="text-white text-left">Horses in this program:</p>
             <HorsesList :race-program-id="program.id" class="large-border-radius" />
           </div>
-          <div class="col-6">
+          <div class="col-12 col-lg-6">
             <p class="text-white text-left">Results:</p>
             <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius" />
           </div>
