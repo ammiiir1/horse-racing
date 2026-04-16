@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { IHorse, IRaceProgram, IRaceRound } from '@/typescript/interfaces/app'
+import type { IHorse, IRaceProgram, IRaceRound } from '@/typescript/interfaces/app'
 
 expect.extend({
   toBeValidHorse(horse: IHorse) {

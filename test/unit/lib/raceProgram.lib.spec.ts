@@ -8,7 +8,7 @@ describe('Race Program Library Test', () => {
     const raceProgram = genRaceProgram(horses.map((item) => item.id))
 
     expect(raceProgram).toBeValidRaceProgram()
-    
+
     raceProgram.rounds.forEach((item) => {
       expect(item).toBeValidRaceRound()
     })

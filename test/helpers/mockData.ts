@@ -1,5 +1,5 @@
-import { IHorse } from '../../app/typescript/interfaces/app'
-import { ID } from '../../app/typescript/types/app'
+import type { IHorse } from '@/typescript/interfaces/app'
+import type { ID } from '../../app/typescript/types/app'
 
 export const mockHorse = (overrides?: Partial<IHorse>): IHorse => {
   return {

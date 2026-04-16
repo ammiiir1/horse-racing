@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       link: [{ rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap-grid.css' }]
     }
   },
-  modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt'],
+  modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt', '@nuxt/test-utils/module'],
   vite: {
     css: {
       preprocessorOptions: {
@@ -25,5 +25,10 @@ export default defineNuxtConfig({
       path: '~/components',
       pathPrefix: false
     }
-  ]
+  ],
+  typescript: {
+    tsConfig: {
+      include: ['../test/**/*', '../test/**/*.ts', '../test/**/**/*.ts']
+    }
+  }
 })

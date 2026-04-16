@@ -38,7 +38,7 @@ describe('AppStore Test', () => {
 
     expect(store.racePrograms.length).toBe(1)
 
-    const program = store.racePrograms[0]
+    const program = store.racePrograms[0]!
 
     expect(program.horses.length).toBe(10)
     expect(program.rounds.length).toBe(6)
@@ -50,7 +50,7 @@ describe('AppStore Test', () => {
     store.generateHorses()
     store.addNewRaceProgram()
 
-    const program = store.racePrograms[0]
+    const program = store.racePrograms[0]!
     store.setActiveRaceProgram(program)
 
     expect(store.activeRaceProgram?.id).toBe(program.id)
@@ -61,7 +61,7 @@ describe('AppStore Test', () => {
 
     store.generateHorses()
     store.addNewRaceProgram()
-    store.setActiveRaceProgram(store.racePrograms[0])
+    store.setActiveRaceProgram(store.racePrograms[0]!)
 
     const round = store.activeRaceProgram!.rounds[0]
 
@@ -79,9 +79,9 @@ describe('AppStore Test', () => {
 
     store.generateHorses()
     store.addNewRaceProgram()
-    store.setActiveRaceProgram(store.racePrograms[0])
+    store.setActiveRaceProgram(store.racePrograms[0]!)
 
-    const round = store.activeRaceProgram!.rounds[0]
+    const round = store.activeRaceProgram!.rounds[0]!
 
     store.setRaceStatus({
       roundData: round,
@@ -103,7 +103,7 @@ describe('AppStore Test', () => {
     store.generateHorses()
     store.addNewRaceProgram()
 
-    const program = store.racePrograms[0]
+    const program = store.racePrograms[0]!
     store.setActiveRaceProgram(program)
 
     const promise = store.startRace()
@@ -112,7 +112,7 @@ describe('AppStore Test', () => {
 
     await promise
 
-    expect(store.racePrograms[0].isDone).toBe(true)
+    expect(store.racePrograms[0]?.isDone).toBe(true)
     expect(store.raceStatus.isStarted).toBe(false)
 
     // check if 10 horses contributed in race and their race rate is 6 (6 rounds of race)
@@ -160,7 +160,7 @@ describe('AppStore Test', () => {
     // check first horse item wins after mutation
     expect(store.horses.get(horse.id)?.wins).toBe(4)
 
-    store.racePrograms[0].rounds[0].isDone = true
+    store.racePrograms[0]!.rounds[0]!.isDone = true
 
     // call stop function
     store.stopRace()
@@ -175,7 +175,7 @@ describe('AppStore Test', () => {
     expect(restoredHorse?.races).toBe(horse.races)
 
     expect(store.racePrograms.length).toBe(originalPrograms.length)
-    expect(store.racePrograms[0].rounds[0].isDone).toBe(false)
+    expect(store.racePrograms[0]?.rounds[0]?.isDone).toBe(false)
     expect(store.raceStatus.isStarted).toBe(false)
   })
 
@@ -189,7 +189,7 @@ describe('AppStore Test', () => {
     expect(store.horses.size).toBe(store.horsesBackup.length)
 
     // check if backup is a deep copy not a shallow copy
-    const horseId = store.horsesBackup[0].id
+    const horseId = store.horsesBackup[0]!.id
     const horse = store.horses.get(horseId)!
 
     horse.wins += 6
