@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="horses" style="width: 100%" :height="height || 400">
+  <el-table :data="tableData" style="width: 100%" :height="height || 400">
     <el-table-column type="index" label="#" width="80" />
     <el-table-column prop="name" label="Name" min-width="180" />
     <el-table-column prop="color" label="Color" min-width="100">
@@ -22,12 +22,21 @@
 </template>
 
 <script setup lang="ts">
-import type { IHorse } from '~/typescript/interfaces/app'
+import type { IHorse } from '~/typescript/interfaces/app';
+import type { ID } from '~/typescript/types/app'
 
-defineProps<{
-  horses: IHorse[]
+// //////////////////////////////////////////// props
+const props = defineProps<{
+  horses?: IHorse[]
+  raceProgramId?: ID
   height?: number
 }>()
+
+// ///////////////////////////////////////////// composables
+const { raceProgramHorses } = useRaceProgramHorses(props.raceProgramId || '' as ID)
+
+// ///////////////////////////////////////////// computed
+const tableData = computed(() => props.horses || raceProgramHorses.value || [])
 </script>
 
 <style scoped></style>

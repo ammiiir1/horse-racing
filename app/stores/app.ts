@@ -2,10 +2,11 @@ import { defineStore } from 'pinia'
 import { genHorses } from '~/lib/horse'
 import { genRaceProgram } from '~/lib/raceProgram'
 import type { IHorse, IRaceProgram, IRaceRound, IRaceStatus } from '~/typescript/interfaces/app'
+import type { ID } from '~/typescript/types/app'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    horses: [] as IHorse[],
+    horses: new Map<ID, IHorse>(),
     horsesBackup: [] as IHorse[],
     racePrograms: [] as IRaceProgram[],
     raceProgramsBackup: [] as IRaceProgram[],
@@ -22,11 +23,14 @@ export const useAppStore = defineStore('app', {
 
   actions: {
     generateHorses() {
-      this.horses = genHorses(20)
+      const generatedHorses = genHorses(20)
+      for (const h of generatedHorses) {
+        this.horses.set(h.id, h)
+      }
     },
 
     addNewRaceProgram() {
-      const newProgram = genRaceProgram(this.horses)
+      const newProgram = genRaceProgram(Array.from(this.horses.keys()))
       this.racePrograms.push(newProgram)
     },
 
@@ -54,8 +58,15 @@ export const useAppStore = defineStore('app', {
       }
 
       // update raceStatus horses data according to activeRaceProgram horses list
-      for (const item of this.activeRaceProgram?.horses || []) {
-        this.raceStatus.horsesData.push({ ...item, xPos: 0, todaysCondition: (Math.random() - Math.random()) * 10 })
+      for (const id of this.activeRaceProgram?.horses || []) {
+        const horse = this.horses.get(id)
+        if (horse) {
+          this.raceStatus.horsesData.push({
+            ...horse,
+            xPos: 0,
+            todaysCondition: (Math.random() - Math.random()) * 10
+          })
+        }
       }
     },
 
@@ -90,7 +101,7 @@ export const useAppStore = defineStore('app', {
 
             let pos = 1
             for (const item of this.raceStatus.horsesData) {
-              roundData?.results?.push({ horse: item, position: pos })
+              roundData?.results?.push({ horseId: item.id, position: pos })
               pos++
             }
 
@@ -104,13 +115,13 @@ export const useAppStore = defineStore('app', {
             this.updateProgramsWithActiveProgram({ activeProgramRounds })
 
             // update horse races count
-            for (const item of this.activeRaceProgram?.horses || []) {
-              const horse = this.horses.find((h) => h.id === item.id)
+            for (const id of this.activeRaceProgram?.horses || []) {
+              const horse = this.horses.get(id)
               if (horse) horse.races++
             }
 
             // update horse wins count
-            const horse_winned = this.horses.find((h) => h.id === this.raceStatus.roundData?.results[0]?.horse.id)
+            const horse_winned = this.horses.get(this.raceStatus.roundData?.results[0]?.horseId as ID)
             if (horse_winned) horse_winned.wins++
 
             // resolve promise - ready for next round ;)
@@ -123,7 +134,7 @@ export const useAppStore = defineStore('app', {
     async startRace() {
       // get backup
       this.raceProgramsBackup = JSON.parse(JSON.stringify(this.racePrograms))
-      this.horsesBackup = JSON.parse(JSON.stringify(this.horses))
+      this.horsesBackup = JSON.parse(JSON.stringify(Array.from(this.horses.values())))
 
       try {
         for await (const round of this.activeRaceProgram?.rounds || []) {
@@ -160,7 +171,10 @@ export const useAppStore = defineStore('app', {
       this.setRaceStatus()
 
       // restore backup
-      this.horses = JSON.parse(JSON.stringify(this.horsesBackup))
+      this.horses.clear
+      for (const h of JSON.parse(JSON.stringify(this.horsesBackup))) {
+        this.horses.set(h.id, h)
+      }
       this.racePrograms = JSON.parse(JSON.stringify(this.raceProgramsBackup))
     }
   }

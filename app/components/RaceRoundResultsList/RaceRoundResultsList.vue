@@ -12,7 +12,7 @@
 
           <el-table-column prop="name" label="Name" min-width="130">
             <template #default="{ row }">
-              <span class="d-block">{{ row.horse.name }}</span>
+              <span class="d-block">{{ horses.get(row.horseId)?.name || '-' }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import type { IRaceRound } from '~/typescript/interfaces/app'
+const { horses } = storeToRefs(useAppStore())
 
 // ///////////////////////////////////////////////////// props
 defineProps<{

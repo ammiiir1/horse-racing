@@ -12,11 +12,11 @@
         <div class="row">
           <div class="col-6">
             <p class="text-white text-left">Horses in this program:</p>
-            <HorsesList :horses="program.horses" class="large-border-radius" />
+            <HorsesList :race-program-id="program.id" class="large-border-radius" />
           </div>
           <div class="col-6">
             <p class="text-white text-left">Results:</p>
-            <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius"  />
+            <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius" />
           </div>
 
           <div v-if="!program.isDone" class="col-12 text-center mt-3">
