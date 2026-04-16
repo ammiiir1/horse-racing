@@ -33,7 +33,9 @@ export default defineConfig({
           name: 'E2E Test',
           setupFiles: ['./test/setup/matchers'],
           include: ['./test/e2e/*.{test,spec}.ts'],
-          environment: 'node'
+          environment: 'node',
+          testTimeout: 60000,
+          hookTimeout: 60000
         }
       }
     ]

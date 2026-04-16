@@ -3,7 +3,7 @@
     <div class="card glass p-3">
       <div class="d-flex align-items-center justify-content-between">
         <b class="text-dark">Here are the available race programs:</b>
-        <el-button type="primary" size="large" @click="addNewRaceProgram">Generate New Program</el-button>
+        <el-button type="primary" size="large" @click="addNewRaceProgram">Generate Race Program</el-button>
       </div>
 
       <div class="py-3">

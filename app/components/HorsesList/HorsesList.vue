@@ -1,6 +1,10 @@
 <template>
   <el-table :data="tableData" style="width: 100%" :height="height || 400">
-    <el-table-column type="index" label="#" width="80" />
+    <el-table-column label="#" width="80">
+      <template #default="{ $index }">
+        <div data-testid="horse-item">{{ $index + 1 }}</div>
+      </template>
+    </el-table-column>
     <el-table-column prop="name" label="Name" min-width="180" />
     <el-table-column prop="color" label="Color" min-width="100">
       <template #default="{ row }">
@@ -22,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IHorse } from '~/typescript/interfaces/app';
+import type { IHorse } from '~/typescript/interfaces/app'
 import type { ID } from '~/typescript/types/app'
 
 // //////////////////////////////////////////// props
@@ -33,7 +37,7 @@ const props = defineProps<{
 }>()
 
 // ///////////////////////////////////////////// composables
-const { raceProgramHorses } = useRaceProgramHorses(props.raceProgramId || '' as ID)
+const { raceProgramHorses } = useRaceProgramHorses(props.raceProgramId || ('' as ID))
 
 // ///////////////////////////////////////////// computed
 const tableData = computed(() => props.horses || raceProgramHorses.value || [])
