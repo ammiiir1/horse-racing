@@ -178,4 +178,30 @@ describe('AppStore Test', () => {
     expect(store.racePrograms[0].rounds[0].isDone).toBe(false)
     expect(store.raceStatus.isStarted).toBe(false)
   })
+
+  it('shout create a deep copy of horses list (safe backup) and restore backup works', () => {
+    const store = useAppStore()
+
+    store.generateHorses()
+    store.getBackup()
+
+    // check if data is becked up
+    expect(store.horses.size).toBe(store.horsesBackup.length)
+
+    // check if backup is a deep copy not a shallow copy
+    const horseId = store.horsesBackup[0].id
+    const horse = store.horses.get(horseId)!
+
+    horse.wins += 6
+
+    expect(store.horses.get(horseId)?.wins).toBe(6)
+    expect(store.horsesBackup.find((item) => item.id === horseId)?.wins).toBe(0)
+
+    // check if restoreBackup works
+    store.restoreBackup()
+    expect(store.horses.get(horseId)?.wins).toBe(0)
+
+    // expected to backup cleared after restore
+    expect(store.horsesBackup.length).toBe(0)
+  })
 })
