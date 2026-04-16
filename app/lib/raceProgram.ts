@@ -2,7 +2,7 @@ import type { IHorse, IRaceRound } from '~/typescript/interfaces/app'
 import type { ID } from '~/typescript/types/app'
 
 // ////////////////////////////////////////////// helpers
-const genRaceRounds = () => {
+export const genRaceRounds = () => {
   const rounds = [] as IRaceRound[]
 
   for (let i = 0; i < 6; i++) {
