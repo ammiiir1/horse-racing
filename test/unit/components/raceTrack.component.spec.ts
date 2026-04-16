@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, it, expect } from 'vitest'
 import RaceTrack from '@/components/RaceTrack/RaceTrack.vue'
-import { mockRaceStatus } from '../helpers/mockData'
+import { mockRaceStatus } from '../../helpers/mockData'
 
 describe('Race Track Render', () => {
   it('should render mock data', async () => {

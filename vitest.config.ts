@@ -14,34 +14,28 @@ export default defineConfig({
           }
         },
         test: {
-          name: 'unit',
-          include: ['./test/unit/**/*.{test,spec}.ts'],
-          setupFiles: ['./test/setup/matchers'],
-          environment: 'node'
-        }
-      },
-      {
-        resolve: {
-          alias: {
-            '@': path.resolve(__dirname, './app'),
-            '~': path.resolve(__dirname, './app')
-          }
-        },
-        test: {
-          name: 'e2e',
-          include: ['./test/e2e/*.{test,spec}.ts'],
+          name: 'Unit-Test (logic)',
+          include: ['./test/unit/stores/*.{test,spec}.ts', './test/unit/lib/*.{test,spec}.ts'],
           setupFiles: ['./test/setup/matchers'],
           environment: 'node'
         }
       },
       await defineVitestProject({
         test: {
-          name: 'nuxt',
+          name: 'Unit-Test (Component)',
           setupFiles: ['./test/setup/matchers'],
-          include: ['./test/components/*.{test,spec}.ts'],
+          include: ['./test/unit/components/*.{test,spec}.ts'],
           environment: 'nuxt'
         }
-      })
+      }),
+      {
+        test: {
+          name: 'E2E Test',
+          setupFiles: ['./test/setup/matchers'],
+          include: ['./test/e2e/*.{test,spec}.ts'],
+          environment: 'node'
+        }
+      }
     ]
   }
 })

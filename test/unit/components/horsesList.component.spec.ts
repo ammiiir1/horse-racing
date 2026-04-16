@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, it, expect, vi } from 'vitest'
 import HorsesList from '@/components/HorsesList/HorsesList.vue'
-import { mockHorse } from '../helpers/mockData'
+import { mockHorse } from '../../helpers/mockData'
 import type { ID } from '~/typescript/types/app'
 
 // mock the composable used in the component
