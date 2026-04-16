@@ -1,6 +1,7 @@
-import type { IHorse } from '@/typescript/interfaces/app'
+import type { IHorse, IRaceStatus } from '@/typescript/interfaces/app'
 import type { ID } from '../../app/typescript/types/app'
 import { genRaceRounds } from '~/lib/raceProgram'
+import { genHorses } from '~/lib/horse'
 
 export const mockHorse = (overrides?: Partial<IHorse>): IHorse => {
   return {
@@ -36,4 +37,17 @@ export const mockRaceRounds = () => {
   }
 
   return rounds
+}
+
+export const mockRaceStatus = () => {
+  const rounds = mockRaceRounds()
+  const horses = genHorses(10)
+  const raceStatus: IRaceStatus = {
+    horsesData: horses.map((item) => ({ ...item, xPos: 0, todaysCondition: 2 })),
+    roundData: rounds[0],
+    isStarted: false,
+    totalTime: 0,
+    spentTime: 0
+  }
+  return raceStatus
 }
