@@ -9,10 +9,10 @@ describe('Generate Race Program', async () => {
   it('should check all flows one after one', async () => {
     const page = await createPage()
     await page.goto(url('/'))
-
-    // //////////////////////// go to race programs list, and check if list is empty
     await page.getByTestId(td.raceProgramLink).click()
     await expect(page).toHaveURL(url('/programs'))
+
+    // //////////////////////// check if program list is empty
     await expect(page.getByTestId(td.noProgramTxt)).toBeVisible()
 
     // //////////////////////// test generating first race program
@@ -23,7 +23,7 @@ describe('Generate Race Program', async () => {
 
     // //////////////////////// test generating more race programs
     await page.getByTestId(td.genRaceProgramBtn).click()
-    // dou to last generate check now it should have 2 items
+    // dou to last generate-check, now it should have 2 items
     await expect(page.getByTestId(td.raceProgramItem)).toHaveCount(2)
 
     // check for 3rd race program generate

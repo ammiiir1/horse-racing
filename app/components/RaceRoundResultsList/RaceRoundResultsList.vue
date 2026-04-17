@@ -7,7 +7,7 @@
           <span>{{ round.length }}m</span>
         </div>
 
-        <el-table :data="round.results" style="width: 100%">
+        <el-table :data="round.results" style="width: 100%" data-testid="race-result-table">
           <el-table-column prop="position" label="Position" width="70" />
 
           <el-table-column prop="name" label="Name" min-width="130">

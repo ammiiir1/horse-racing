@@ -1,6 +1,6 @@
 <template>
   <div class="race-track">
-    <div v-for="(horse, index) in raceStatus.horsesData" :key="horse.id" class="lane">
+    <div v-for="(horse, index) in raceStatus.horsesData" :key="horse.id" class="lane" data-testid="race-track-lane">
       <div class="lane-number">{{ index + 1 }}</div>
 
       <div class="lane-path">
