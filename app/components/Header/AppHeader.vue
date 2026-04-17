@@ -4,13 +4,13 @@
       <h1 class="app-title">Horse Racing</h1>
       <nav>
         <ul>
-          <NuxtLink :to="{ name: 'index' }" v-slot="{ href, navigate, isActive }" custom>
-            <li @click="navigate" data-testid="horses-statistics-link">
+          <NuxtLink v-slot="{ href, navigate, isActive }" :to="{ name: 'index' }" custom>
+            <li data-testid="horses-statistics-link" @click="navigate">
               <a :href="href" :class="{ 'text-primary': isActive }">Horses Statistics</a>
             </li>
           </NuxtLink>
-          <NuxtLink :to="{ name: 'programs' }" v-slot="{ href, navigate, isActive }" custom>
-            <li @click="navigate" data-testid="race-programs-link">
+          <NuxtLink v-slot="{ href, navigate, isActive }" :to="{ name: 'programs' }" custom>
+            <li data-testid="race-programs-link" @click="navigate">
               <a :href="href" :class="{ 'text-primary': isActive }">Race Programs</a>
             </li>
           </NuxtLink>

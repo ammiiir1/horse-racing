@@ -32,9 +32,9 @@ expect.extend({
     return {
       pass,
       message: () =>
-        pass
-          ? `RaceRound data Matches Interface`
-          : `RaceRound data does NOT Match Interface: ${JSON.stringify(round, null, 2)}`
+        pass ?
+          `RaceRound data Matches Interface` :
+          `RaceRound data does NOT Match Interface: ${JSON.stringify(round, null, 2)}`
     }
   },
   toBeValidRaceProgram(raceProgram: IRaceProgram) {
@@ -53,9 +53,9 @@ expect.extend({
     return {
       pass,
       message: () =>
-        pass
-          ? `RaceProgram data Matches Interface`
-          : `RaceProgram data does NOT Match Interface: ${JSON.stringify(raceProgram, null, 2)}`
+        pass ?
+          `RaceProgram data Matches Interface` :
+          `RaceProgram data does NOT Match Interface: ${JSON.stringify(raceProgram, null, 2)}`
     }
   }
 })

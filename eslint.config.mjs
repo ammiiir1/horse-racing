@@ -1,8 +1,12 @@
-// @ts-check
+// @ts-ignore
 import withNuxt from './.nuxt/eslint.config.mjs'
+import stylistic from '@stylistic/eslint-plugin'
 
-export default withNuxt(
-  // Your custom configs here
+export default withNuxt({
+  plugins: {
+    // @ts-ignore
+    '@stylistic': stylistic
+  },
   files: ['**/*.vue', '**/*.ts', '**/*.tsx'],
   rules: {
     'no-console': 'off',
@@ -26,4 +30,4 @@ export default withNuxt(
       }
     ]
   }
-)
+})

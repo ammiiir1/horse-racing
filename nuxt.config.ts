@@ -31,6 +31,18 @@ export default defineNuxtConfig({
       pathPrefix: false
     }
   ],
+  eslint: {
+    checker: true,
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        indent: 2,
+        semi: false,
+        quotes: 'single',
+        braceStyle: '1tbs'
+      }
+    }
+  },
   typescript: {
     tsConfig: {
       include: ['../test/**/*', '../test/**/*.ts', '../test/**/**/*.ts']

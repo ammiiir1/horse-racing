@@ -4,7 +4,12 @@
       <div class="glass card p-3 d-flex align-items-center justify-content-between" data-testid="race-action-bar">
         <template v-if="!raceStatus.isStarted">
           <b class="text-dark">Ready to go?</b>
-          <el-button class="px-5 ms-2" size="large" type="primary" data-testid="start-race-btn" @click="startRace">
+          <el-button
+class="px-5 ms-2"
+size="large"
+type="primary"
+data-testid="start-race-btn"
+@click="startRace">
             Start!
           </el-button>
         </template>
@@ -14,7 +19,12 @@
             <span class="text-danger ms-2">{{ raceStatus.roundData?.length }}m</span>
           </div>
 
-          <el-button class="px-5 ms-2" size="large" type="danger" data-testid="stop-race-btn" @click="stop">
+          <el-button
+class="px-5 ms-2"
+size="large"
+type="danger"
+data-testid="stop-race-btn"
+@click="stop">
             Stop
           </el-button>
         </template>
