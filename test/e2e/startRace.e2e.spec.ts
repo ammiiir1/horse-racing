@@ -14,7 +14,7 @@ describe('Start A Race From Programs List', async () => {
     }
   })
 
-  it('should do generate a program and run it', async () => {
+  it('should do generate a program and run it, stop it, again run it and tries to change route ... ', async () => {
     const page = await createPage()
 
     await page.goto(url('/'))
@@ -28,17 +28,12 @@ describe('Start A Race From Programs List', async () => {
     await raceProgramItem.getByTestId(td.startRaceBtn).click()
     await expect(page).toHaveURL(/\/programs\/race\?pid=/)
 
-    // define some elements
-    const startBtn = page.getByTestId(td.startRaceBtn)
-    const stopBtn = page.getByTestId(td.stopRaceBtn)
-    const raceActionBar = page.getByTestId(td.raceActionBar)
-
     // check all elements
     await expect(page.getByTestId(td.raceTrack)).toBeVisible()
     await expect(page.getByTestId(td.raceResults)).toBeVisible()
     await expect(page.getByTestId(td.raceTrackLane)).toHaveCount(10)
     await expect(page.getByTestId(td.raceResultTable)).toHaveCount(6)
-    await expect(raceActionBar).toContainText('Ready to go?')
+    await expect(page.getByTestId(td.raceActionBar)).toContainText('Ready to go?')
 
     // capture initial positions for first and last horses
     const horses = page.getByTestId(td.horseVector)
@@ -46,10 +41,10 @@ describe('Start A Race From Programs List', async () => {
     const lastHorseStart = await horses.last().evaluate((el) => parseFloat(el.style.left) || 0)
 
     // start race
-    await startBtn.click()
-    await expect(startBtn).not.toBeVisible()
-    await expect(stopBtn).toBeVisible()
-    await expect(raceActionBar).toContainText('is running ...')
+    await page.getByTestId(td.startRaceBtn).click()
+    await expect(page.getByTestId(td.startRaceBtn)).not.toBeVisible()
+    await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
+    await expect(page.getByTestId(td.raceActionBar)).toContainText('is running ...')
 
     await page.waitForTimeout(200) // let horses run
 
@@ -60,7 +55,7 @@ describe('Start A Race From Programs List', async () => {
     expect(lastHorseEnd).toBeGreaterThan(lastHorseStart)
 
     // check stop button
-    await stopBtn.click()
+    await page.getByTestId(td.stopRaceBtn).click()
     await expect(page.locator('.stop-race-alert')).toBeVisible()
 
     // check cancel alert
@@ -68,35 +63,45 @@ describe('Start A Race From Programs List', async () => {
     await expect(page.locator('.stop-race-alert')).not.toBeVisible()
 
     // check confirm alert
-    await stopBtn.click()
+    await page.getByTestId(td.stopRaceBtn).click()
     await page.locator('.confirm-stop-alert-btn').click()
     await expect(page.locator('.stop-race-alert')).not.toBeVisible()
-    await expect(stopBtn).not.toBeVisible()
-    await expect(startBtn).toBeVisible()
-    await expect(raceActionBar).toContainText('Ready to go?')
+    await expect(page.getByTestId(td.stopRaceBtn)).not.toBeVisible()
+    await expect(page.getByTestId(td.startRaceBtn)).toBeVisible()
+    await expect(page.getByTestId(td.raceActionBar)).toContainText('Ready to go?')
 
     // start race again, this time trying leave page while race running
-    await startBtn.click()
+    await page.getByTestId(td.startRaceBtn).click()
     await page.getByTestId(td.raceProgramLink).click()
 
     // if user cancels, page should not leave
     await page.locator('.cancel-stop-alert-btn').click()
     await expect(page).toHaveURL(/\/programs\/race\?pid=/)
-    await expect(stopBtn).toBeVisible()
+    await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
 
     // now if user confirms leave page
     await page.getByTestId(td.raceProgramLink).click()
     await page.locator('.confirm-stop-alert-btn').click()
     await expect(page).toHaveURL(url('/programs'))
+  })
 
-    // //////////////////////////////////////////////////// final gameplay test is here
-    // go back and finish a race
+  it('should do generate a program and run it until it finishes and goes back to programs list', async () => {
+    const page = await createPage()
+
+    await page.goto(url('/'))
+    await page.getByTestId(td.raceProgramLink).click()
+    await expect(page).toHaveURL(url('/programs'))
+
+    // generate a program and click on its start brn
+    await page.getByTestId(td.genRaceProgramBtn).click()
+    const raceProgramItem = page.getByTestId(td.raceProgramItem).first()
     await raceProgramItem.click()
     await raceProgramItem.getByTestId(td.startRaceBtn).click()
     await expect(page).toHaveURL(/\/programs\/race\?pid=/)
 
-    await startBtn.click()
-    await expect(page.getByTestId(td.startRaceBtn)).toBeVisible()
+    // final gameplay test is here
+    await page.getByTestId(td.startRaceBtn).click()
+    await page.waitForTimeout(1000) // let horses run
     await expect(page.locator('.finish-race-alert')).toBeVisible({ timeout: 10000 })
     await page.locator('.confirm-finish-alert-btn').click()
     await expect(page).toHaveURL(url('/programs'))
