@@ -5,12 +5,12 @@
       <nav>
         <ul>
           <NuxtLink :to="{ name: 'index' }" v-slot="{ href, navigate, isActive }" custom>
-            <li @click="navigate" data-testid="horses-statistics">
+            <li @click="navigate" data-testid="horses-statistics-link">
               <a :href="href" :class="{ 'text-primary': isActive }">Horses Statistics</a>
             </li>
           </NuxtLink>
           <NuxtLink :to="{ name: 'programs' }" v-slot="{ href, navigate, isActive }" custom>
-            <li @click="navigate" data-testid="race-programs">
+            <li @click="navigate" data-testid="race-programs-link">
               <a :href="href" :class="{ 'text-primary': isActive }">Race Programs</a>
             </li>
           </NuxtLink>

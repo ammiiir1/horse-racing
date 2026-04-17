@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card">
-      <HorsesList :horses="horsesList" :height="650" />
+      <HorsesList data-testid="horses-statistics-table" :horses="horsesList" :height="650" />
     </div>
   </div>
 </template>

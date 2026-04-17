@@ -32,6 +32,7 @@
   "devDependencies": {
     "@nuxt/test-utils": "^4.0.2",
     "@pinia/testing": "^1.0.3",
+    "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^20.9.0",
