@@ -8,7 +8,7 @@ describe('Start A Race From Programs List', async () => {
     nuxtConfig: {
       runtimeConfig: {
         public: {
-          gameSpeedMultiplier: 0.1
+          gameSpeedMultiplier: 0.3
         }
       }
     }
@@ -95,10 +95,13 @@ describe('Start A Race From Programs List', async () => {
     await expect(page).toHaveURL(url('/programs'))
 
     // generate a program and click on its start brn
+    await expect(page.getByTestId(td.genRaceProgramBtn)).toBeVisible()
     await page.getByTestId(td.genRaceProgramBtn).click()
-    const raceProgramItem = page.getByTestId(td.raceProgramItem).first()
-    await raceProgramItem.click()
-    await raceProgramItem.getByTestId(td.startRaceBtn).click()
+
+    await expect(page.getByTestId(td.raceProgramList)).toBeVisible()
+    await page.getByTestId(td.raceProgramItem).first().click()
+    await expect(page.getByTestId(td.raceProgramItem).first().getByTestId(td.startRaceBtn)).toBeVisible()
+    await page.getByTestId(td.raceProgramItem).first().getByTestId(td.startRaceBtn).click()
     await expect(page).toHaveURL(/\/programs\/race\?pid=/)
 
     // final gameplay test is here
@@ -109,6 +112,6 @@ describe('Start A Race From Programs List', async () => {
     await expect(page).toHaveURL(url('/programs'))
 
     // now check if program item is marked ad completed
-    await expect(raceProgramItem).toContainText('Completed')
+    await expect(page.getByTestId(td.raceProgramItem).first()).toContainText('Completed')
   })
 })
