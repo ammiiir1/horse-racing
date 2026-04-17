@@ -63,7 +63,9 @@ describe('Start A Race From Programs List', async () => {
     await expect(page.locator('.stop-race-alert')).toBeHidden()
 
     // check confirm alert
+    await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
     await page.getByTestId(td.stopRaceBtn).click()
+    await expect(page.locator('.confirm-stop-alert-btn')).toBeVisible()
     await page.locator('.confirm-stop-alert-btn').click()
     await expect(page.locator('.stop-race-alert')).not.toBeVisible()
     await expect(page.getByTestId(td.stopRaceBtn)).not.toBeVisible()
