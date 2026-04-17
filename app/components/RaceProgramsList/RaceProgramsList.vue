@@ -1,7 +1,12 @@
 <template>
   <div>
     <el-collapse>
-      <el-collapse-item v-for="(program, index) in racePrograms" :key="program.id" :name="program.id">
+      <el-collapse-item
+        v-for="(program, index) in racePrograms"
+        :key="program.id"
+        :name="program.id"
+        data-testid="race-program-item"
+      >
         <template #title="{ isActive }">
           <span class="text-white">{{ `Program ${index + 1}, Created at ${$date(program.createdAt)}` }}</span>
           <span :class="[program.isDone ? 'text-success' : 'text-danger', 'ms-3']">

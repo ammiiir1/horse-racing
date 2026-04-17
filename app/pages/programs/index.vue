@@ -9,8 +9,8 @@
       </div>
 
       <div class="py-3">
-        <RaceProgramsList v-if="racePrograms.length" />
-        <p v-else class="text-center text-white py-5 large-border-radius glass">No race program generated yet.</p>
+        <RaceProgramsList v-if="racePrograms.length" data-testid="race-program-list" />
+        <p v-else data-testid="no-program-text" class="text-center text-white py-5 large-border-radius glass">No race program generated yet.</p>
       </div>
     </div>
   </div>
