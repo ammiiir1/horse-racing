@@ -73,7 +73,7 @@ All race programs are displayed in a collapsible list (accordion UI).
 
 Each race program includes:
 - List of participating horses
-- Winner(s)
+- Winners on top of chart
 - Full race history
 
 If a race program is completed:
