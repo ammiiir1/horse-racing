@@ -5,14 +5,17 @@ import { TEST_DATA_SELECTORS as td } from '../helpers/testDataSelectors'
 
 describe('App Load', async () => {
   await setup()
-  const page = await createPage()
 
   it('should load the app and check if horses are generated correctly', async () => {
+    const page = await createPage()
     await page.goto(url('/'))
     await expect(page.getByTestId(td.horseItem)).toHaveCount(20)
   })
 
   it('should test navigation links in header', async () => {
+    const page = await createPage()
+    await page.goto(url('/'))
+
     // test racePrograms link
     await page.getByTestId(td.raceProgramLink).click()
     await expect(page).toHaveURL(url('/programs'))
