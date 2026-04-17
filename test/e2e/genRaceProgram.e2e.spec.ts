@@ -36,21 +36,40 @@ describe('Generate Race Program', async () => {
     const secondRaceProgramItem = page.getByTestId(td.raceProgramItem).nth(1)
     const thirdRaceProgramItem = page.getByTestId(td.raceProgramItem).nth(2)
 
+    // before start, check every thing is collapsed and not visible
+    await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
+    await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
+    await expect(thirdRaceProgramItem).not.toHaveClass(/is-active/)
+
+    // also check btns if first one is visible and the others not
+    await expect(firstRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
+    await expect(secondRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
+    await expect(thirdRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
+
+    // expand first collapse
     await firstRaceProgramItem.click({ force: true })
     await expect(firstRaceProgramItem).toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(thirdRaceProgramItem).not.toHaveClass(/is-active/)
 
+    // also check btns if first one is visible and the others not
+    await expect(firstRaceProgramItem.getByTestId(td.startRaceBtn)).toBeVisible()
+    await expect(secondRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
+    await expect(thirdRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
+
+    // collapse first collapse
     await firstRaceProgramItem.click({ force: true })
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(thirdRaceProgramItem).not.toHaveClass(/is-active/)
 
+    // expand second collapse
     await secondRaceProgramItem.click({ force: true })
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).toHaveClass(/is-active/)
     await expect(thirdRaceProgramItem).not.toHaveClass(/is-active/)
 
+    // expand third collapse
     await thirdRaceProgramItem.click({ force: true })
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).toHaveClass(/is-active/)

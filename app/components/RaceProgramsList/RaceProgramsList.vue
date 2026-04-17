@@ -29,6 +29,7 @@
               type="primary"
               size="large"
               class="px-10"
+              data-testid="start-race-btn"
               @click="$router.push({ name: 'programs-race', query: { pid: program.id } })"
             >
               Start Race

@@ -10,5 +10,6 @@ export const TEST_DATA_SELECTORS = {
     genRaceProgramBtn: 'generate-program-btn',
     noProgramTxt: 'no-program-text',
     raceProgramList: 'race-program-list',
-    raceProgramItem: 'race-program-item'
+    raceProgramItem: 'race-program-item',
+    startRaceBtn: 'start-race-btn'
 }
