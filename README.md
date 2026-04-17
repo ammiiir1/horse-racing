@@ -60,12 +60,10 @@ Inside each table:
 - Horses are **sorted based on their performance in that specific round**
 - Ranking is recalculated per round (not global ranking)
 
-This ensures each round has its own independent leaderboard.
-
-👉 This allows users to clearly see:
+This allows users to clearly see:
 - Performance changes between rounds
 - Fluctuations caused by `todayCondition`
-- How consistency and randomness affect outcomes
+- How randomness and consistency affect outcomes
 
 ---
 
@@ -126,15 +124,47 @@ The project includes full testing coverage:
   - Viewing results
 - Multi-interaction scenarios (click flows, UI state changes)
 
+Tests are designed to be:
+- Stable in CI environment
+- Deterministic where possible
+- Easy to debug via structured naming
+
 ---
 
 ### ⚙️ Tech Stack
 
-- Vue 3 / Nuxt 3
+- Nuxt 4
+- Vue 3
 - TypeScript
 - Pinia (state management)
+- SCSS (modular styling system)
 - Playwright (E2E testing)
 - Vitest (unit & component testing)
+
+---
+
+### 🏗️ Project Structure & Maintainability
+
+The project is structured with scalability and maintainability in mind:
+
+- Feature-based folder structure
+- Separation of concerns between UI, logic, and state
+- Reusable composables and utilities
+- Clear domain separation for race logic, UI components, and state management
+
+This structure ensures:
+- Easy onboarding for future developers
+- Low coupling between modules
+- Simple scalability for new features
+
+---
+
+### 🎨 Styling System
+
+- SCSS is used for styling
+- Modular SCSS architecture (scoped + reusable styles)
+- Avoids global style pollution
+- Designed for maintainability in larger scale applications
 
 ---
 
@@ -144,6 +174,29 @@ The project includes full testing coverage:
 - Separation of race programs via unique IDs
 - Middleware-based safety layer for navigation stability
 - Fully testable architecture (logic isolated from UI)
+- Controlled randomness in test environment for stability
+
+---
+
+### 🧠 Developer Experience (DX)
+
+- Fast test execution
+- Clear separation of business logic
+- Predictable state flow
+- Easy debugging through structured file naming
+
+---
+
+### 🔧 CI/CD
+
+The project is designed to support CI pipelines:
+
+- Linting
+- Unit tests
+- E2E tests
+- Build verification
+
+(Recommended to run via GitHub Actions)
 
 ---
 
@@ -154,3 +207,4 @@ This project simulates a complete horse racing system with:
 - Realistic probability-based outcomes
 - Fully tested architecture (unit + component + E2E)
 - Safe navigation and state handling
+- Scalable and maintainable code structure
