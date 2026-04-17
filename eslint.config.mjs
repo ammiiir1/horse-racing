@@ -10,24 +10,19 @@ export default withNuxt({
   files: ['**/*.vue', '**/*.ts', '**/*.tsx'],
   rules: {
     'no-console': 'off',
-    'arrow-parens': 'off',
     'no-empty': 'off',
     'no-unused-vars': 'off',
-    'multi-word': 'off',
-    'no-async-promise-executor': 'off',
+
     'vue/multi-word-component-names': 'off',
     'vue/v-on-event-hyphenation': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/max-attributes-per-line': 'off',
+
+    '@stylistic/arrow-parens': 'off',
     '@stylistic/member-delimiter-style': 'off',
     '@stylistic/brace-style': 'off',
-    '@stylistic/operator-linebreak': ['error', 'after'],
-    '@typescript-eslint/ban-ts-comment': 'off',
-    'vue/max-attributes-per-line': [
-      'error',
-      {
-        singleline: 4,
-        multiline: 1
-      }
-    ]
+
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off'
   }
 })
