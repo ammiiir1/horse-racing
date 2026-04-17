@@ -146,7 +146,7 @@ export const useAppStore = defineStore('app', {
             // resolve promise - ready for next round ;)
             resolve(true)
           }
-        }, 100)
+        }, 100 * useRuntimeConfig().public.gameSpeedMultiplier)
       })
     },
 
@@ -159,7 +159,7 @@ export const useAppStore = defineStore('app', {
           this.setRaceStatus({
             isStarted: true,
             roundData: round,
-            totalTime: round.length * 10,
+            totalTime: round.length * 10 * useRuntimeConfig().public.gameSpeedMultiplier,
             spentTime: 0
           })
 
@@ -173,7 +173,11 @@ export const useAppStore = defineStore('app', {
         this.clearBackup()
 
         // tell client race is finished and change route to programs list
-        await ElMessageBox.alert('Race Finished!', { type: 'success' })
+        await ElMessageBox.alert('Race Finished!', {
+          type: 'success',
+          confirmButtonClass: 'confirm-finish-alert-btn',
+          customClass: 'finish-race-alert'
+        })
         useRouter().push({ name: 'programs' })
       } catch (err) {}
     },

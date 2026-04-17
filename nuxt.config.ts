@@ -20,6 +20,11 @@ export default defineNuxtConfig({
       devSourcemap: true
     }
   },
+  runtimeConfig: {
+    public: {
+      gameSpeedMultiplier: 1
+    }
+  },
   components: [
     {
       path: '~/components',

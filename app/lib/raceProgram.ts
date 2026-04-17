@@ -4,7 +4,6 @@ import type { ID } from '~/typescript/types/app'
 // ////////////////////////////////////////////// helpers
 export const genRaceRounds = () => {
   const rounds = [] as IRaceRound[]
-
   for (let i = 0; i < 6; i++) {
     rounds.push({
       id: crypto.randomUUID(),

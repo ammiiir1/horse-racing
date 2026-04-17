@@ -66,7 +66,10 @@ const stopWarning = (msg: string, btn: string) =>
     type: 'warning',
     confirmButtonText: btn,
     confirmButtonType: 'danger',
-    cancelButtonText: 'Cancel'
+    cancelButtonText: 'Cancel',
+    confirmButtonClass: 'confirm-stop-alert-btn',
+    cancelButtonClass: 'cancel-stop-alert-btn',
+    customClass: 'stop-race-alert'
   })
 
 const stop = async () => {

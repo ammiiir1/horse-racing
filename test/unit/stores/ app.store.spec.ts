@@ -4,6 +4,12 @@ import { useAppStore } from '@/stores/app'
 import { mockHorse } from '../../helpers/mockData'
 
 describe('AppStore Test', () => {
+  vi.stubGlobal('useRuntimeConfig', () => ({
+    public: {
+      gameSpeedMultiplier: 0.01
+    }
+  }))
+
   beforeEach(() => {
     setActivePinia(createPinia())
   })
@@ -98,19 +104,13 @@ describe('AppStore Test', () => {
   it('should complete full race and mark program done', async () => {
     const store = useAppStore()
 
-    vi.useFakeTimers()
-
     store.generateHorses()
     store.addNewRaceProgram()
 
     const program = store.racePrograms[0]!
     store.setActiveRaceProgram(program)
 
-    const promise = store.startRace()
-
-    await vi.runAllTimersAsync()
-
-    await promise
+    await store.startRace()
 
     expect(store.racePrograms[0]?.isDone).toBe(true)
     expect(store.raceStatus.isStarted).toBe(false)
@@ -128,8 +128,6 @@ describe('AppStore Test', () => {
         expect(round.results.length).toBe(10)
       })
     })
-
-    vi.useRealTimers()
   })
 
   it('should stop race and restore horses and programs from backup', () => {
