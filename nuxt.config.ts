@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt', '@nuxt/test-utils/module'],
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false
+    }
+  ],
   devtools: { enabled: false },
   app: {
     head: {
@@ -8,7 +14,12 @@ export default defineNuxtConfig({
       link: [{ rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap-grid.css' }]
     }
   },
-  modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt', '@nuxt/test-utils/module'],
+  runtimeConfig: {
+    public: {
+      gameSpeedMultiplier: 1
+    }
+  },
+  compatibilityDate: '2025-07-15',
   vite: {
     css: {
       preprocessorOptions: {
@@ -20,17 +31,11 @@ export default defineNuxtConfig({
       devSourcemap: true
     }
   },
-  runtimeConfig: {
-    public: {
-      gameSpeedMultiplier: 1
+  typescript: {
+    tsConfig: {
+      include: ['../test/**/*', '../test/**/*.ts', '../test/**/**/*.ts']
     }
   },
-  components: [
-    {
-      path: '~/components',
-      pathPrefix: false
-    }
-  ],
   eslint: {
     checker: true,
     config: {
@@ -41,11 +46,6 @@ export default defineNuxtConfig({
         quotes: 'single',
         braceStyle: '1tbs'
       }
-    }
-  },
-  typescript: {
-    tsConfig: {
-      include: ['../test/**/*', '../test/**/*.ts', '../test/**/**/*.ts']
     }
   }
 })

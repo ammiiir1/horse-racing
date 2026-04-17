@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import type { IHorseRaceData } from '~/typescript/interfaces/app'
+
 const { raceStatus } = storeToRefs(useAppStore())
 
 // /////////////////////////////////////////////// methods

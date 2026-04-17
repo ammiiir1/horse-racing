@@ -1,10 +1,8 @@
-// @ts-ignore
 import withNuxt from './.nuxt/eslint.config.mjs'
 import stylistic from '@stylistic/eslint-plugin'
 
 export default withNuxt({
   plugins: {
-    // @ts-ignore
     '@stylistic': stylistic
   },
   files: ['**/*.vue', '**/*.ts', '**/*.tsx'],
@@ -12,6 +10,7 @@ export default withNuxt({
     'no-console': 'off',
     'no-empty': 'off',
     'no-unused-vars': 'off',
+    'operator-linebreak': 'off',
 
     'vue/multi-word-component-names': 'off',
     'vue/v-on-event-hyphenation': 'off',
@@ -21,6 +20,7 @@ export default withNuxt({
     '@stylistic/arrow-parens': 'off',
     '@stylistic/member-delimiter-style': 'off',
     '@stylistic/brace-style': 'off',
+    '@stylistic/operator-linebreak': 'off',
 
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/ban-ts-comment': 'off'

@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import type { IRaceRound } from '~/typescript/interfaces/app'
+
 const { horses } = storeToRefs(useAppStore())
 
 // ///////////////////////////////////////////////////// props
