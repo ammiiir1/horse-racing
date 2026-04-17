@@ -11,7 +11,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Horse Racing',
-      link: [{ rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap-grid.css' }]
+      link: [
+        { rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap-grid.css' },
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+      ]
     }
   },
   runtimeConfig: {
