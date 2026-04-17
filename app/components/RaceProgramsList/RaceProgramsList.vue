@@ -8,7 +8,9 @@
         data-testid="race-program-item"
       >
         <template #title>
-          <span class="text-white">{{ `Program ${index + 1}, Created at ${$date(program.createdAt)}` }}</span>
+          <span class="text-white">
+            {{ `Program ${index + 1}, Created at ${$date(program.createdAt)}` }}
+          </span>
           <span :class="[program.isDone ? 'text-success' : 'text-danger', 'ms-3']">
             {{ program.isDone ? 'Completed' : 'Pending' }}
           </span>
@@ -22,7 +24,11 @@
           <div class="col-12 col-lg-6">
             <p class="text-white text-left">Results:</p>
 
-            <RaceRoundResultsList :rounds="program.rounds" :horses="program.horses" class="large-border-radius" />
+            <RaceRoundResultsList
+              :rounds="program.rounds"
+              :horses="program.horses"
+              class="large-border-radius"
+            />
           </div>
 
           <div v-if="!program.isDone" class="col-12 text-center mt-3">

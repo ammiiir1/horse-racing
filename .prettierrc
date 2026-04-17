@@ -4,6 +4,6 @@
   "semi": false,
   "singleQuote": true,
   "tabs": false,
-  "printWidth": 120,
+  "printWidth": 100,
   "endOfLine": "auto"
 }
