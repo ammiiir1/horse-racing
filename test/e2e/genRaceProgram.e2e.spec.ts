@@ -75,6 +75,27 @@ describe('Generate Race Program', async () => {
     await expect(secondRaceProgramItem).toHaveClass(/is-active/)
     await expect(thirdRaceProgramItem).toHaveClass(/is-active/)
 
+    // //////////////////////// check go to race page
+    // check second item going to race page
+    await secondRaceProgramItem.getByTestId(td.startRaceBtn).click()
+    await expect(page).toHaveURL(/\/programs\/race\?pid=/)
+    const secondRaceId = new URL(page.url()).searchParams.get('pid')
+
+    // go back to programs list
+    await page.goBack()
+    await expect(page).toHaveURL(url('/programs'))
+
+    // check first item going to race page
+    await firstRaceProgramItem.click()
+    await firstRaceProgramItem.getByTestId(td.startRaceBtn).click()
+    await expect(page).toHaveURL(/\/programs\/race\?pid=/)
+    const firstRaceId = new URL(page.url()).searchParams.get('pid')
+
+    // check if first item and second items had different IDs
+    expect(firstRaceId).toBeTruthy()
+    expect(secondRaceId).toBeTruthy()
+    expect(firstRaceId).not.toBe(secondRaceId)
+
     // //////////////////////// check if reloading page redirects to homePage with new generated horses
     await page.reload()
     await expect(page).toHaveURL(url('/'))
