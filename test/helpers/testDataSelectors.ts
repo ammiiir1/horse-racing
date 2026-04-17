@@ -17,5 +17,8 @@ export const TEST_DATA_SELECTORS = {
   raceTrack: 'race-track',
   raceTrackLane: 'race-track-lane',
   raceResults: 'race-results',
-  raceResultTable: 'race-result-table'
+  raceResultTable: 'race-result-table',
+  stopRaceBtn: 'stop-race-btn',
+  raceActionBar: 'race-action-bar',
+  horseVector: 'horse-vector'
 }

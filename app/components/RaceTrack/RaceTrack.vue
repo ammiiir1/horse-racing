@@ -4,7 +4,7 @@
       <div class="lane-number">{{ index + 1 }}</div>
 
       <div class="lane-path">
-        <RunningHorseVector :color="horse.color" :x-pos="getHorsePos(horse)" />
+        <RunningHorseVector :color="horse.color" :x-pos="getHorsePos(horse)" data-testid="horse-vector" />
         <span class="horse-name">{{ horse.name }}</span>
       </div>
     </div>
