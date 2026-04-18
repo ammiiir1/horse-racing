@@ -27,6 +27,7 @@ export interface IRaceRound {
 export interface IRaceProgram {
   id: ID
   createdAt: number
+  startedAt: number
   finishedAt: number
   /** horses: 10 horses */
   horses: ID[]

@@ -52,15 +52,16 @@ export const useAppStore = defineStore('app', {
       this.clearBackup()
     },
 
-    updateProgramsWithActiveProgram(payload?: { activeProgramRounds?: IRaceRound[]; activeProgramIsDone?: boolean }) {
+    updateProgramsWithActiveProgram(raceRounds: IRaceRound[]) {
       const allPrograms = this.racePrograms.map((item) => {
         if (item.id === this.activeRaceProgram?.id) {
-          const tmpData = {
+          return {
             ...item,
-            isDone: payload?.activeProgramIsDone || false
+            isDone: true,
+            startedAt: this.activeRaceProgram.startedAt,
+            finishedAt: this.activeRaceProgram.finishedAt,
+            rounds: raceRounds
           } as IRaceProgram
-          if (payload?.activeProgramRounds) tmpData.rounds = payload.activeProgramRounds
-          return tmpData
         } else return item
       })
       this.racePrograms = allPrograms
@@ -115,6 +116,9 @@ export const useAppStore = defineStore('app', {
             // kill interval
             clearInterval(this.raceInterval)
 
+            // set finish time for raceProgram
+            this.activeRaceProgram!.finishedAt = Date.now()
+
             // sort horse data by their positions
             this.raceStatus.horsesData.sort((a, b) => b.xPos - a.xPos)
 
@@ -134,7 +138,7 @@ export const useAppStore = defineStore('app', {
             }) as IRaceRound[]
 
             // update race programs list
-            this.updateProgramsWithActiveProgram({ activeProgramRounds })
+            this.updateProgramsWithActiveProgram(activeProgramRounds)
 
             // update horse races count
             for (const id of this.activeRaceProgram?.horses || []) {
@@ -154,11 +158,16 @@ export const useAppStore = defineStore('app', {
     },
 
     async startRace() {
+      if (!this.activeRaceProgram) return
+
       // get backup
       this.getBackup()
 
+      // set start time to active program
+      this.activeRaceProgram.startedAt = Date.now()
+
       try {
-        for await (const round of this.activeRaceProgram?.rounds || []) {
+        for await (const round of this.activeRaceProgram.rounds || []) {
           this.setRaceStatus({
             isStarted: true,
             roundData: round,
@@ -169,7 +178,6 @@ export const useAppStore = defineStore('app', {
         }
 
         this.setRaceStatus({ isStarted: false })
-        this.updateProgramsWithActiveProgram({ activeProgramIsDone: true })
 
         // clear backup
         this.clearBackup()

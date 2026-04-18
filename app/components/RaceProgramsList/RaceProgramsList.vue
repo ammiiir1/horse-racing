@@ -17,6 +17,29 @@
         </template>
 
         <div class="row">
+          <div v-if="program.isDone" class="col-12">
+            <p class="text-dark text-left glass element-bg-success large-border-radius p-3">
+              <span>
+                Program Marked As Completed On:
+                <b class="text-dark">{{ $date(program.startedAt) }}</b>
+              </span>
+              <br>
+              <span>Started At: <b class="">{{ $time(program.startedAt) }}</b></span>
+              <br>
+              <span>Finished At: <b class="">{{ $time(program.finishedAt) }}</b></span>
+              <br>
+              <span>
+                Total Duration:
+                <b>
+                  {{
+                    $dayjs
+                      .duration($dayjs(program.finishedAt).diff(program.startedAt))
+                      .format('mm:ss')
+                  }}
+                </b>
+              </span>
+            </p>
+          </div>
           <div class="col-12 col-lg-6">
             <p class="text-white text-left">Horses in this program:</p>
             <HorsesList :race-program-id="program.id" class="large-border-radius" />
