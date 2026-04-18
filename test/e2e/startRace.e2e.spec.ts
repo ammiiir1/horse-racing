@@ -8,7 +8,7 @@ describe('Start A Race From Programs List', async () => {
     nuxtConfig: {
       runtimeConfig: {
         public: {
-          gameSpeedMultiplier: 0.3
+          gameSpeedMultiplier: 0.2
         }
       }
     }
@@ -106,7 +106,7 @@ describe('Start A Race From Programs List', async () => {
 
     // final gameplay test is here
     await page.getByTestId(td.startRaceBtn).click()
-    await page.waitForTimeout(1000) // let horses run
+    await page.waitForTimeout(2000) // let horses run
     await expect(page.locator('.finish-race-alert')).toBeVisible({ timeout: 10000 })
     await page.locator('.confirm-finish-alert-btn').click()
     await expect(page).toHaveURL(url('/programs'))

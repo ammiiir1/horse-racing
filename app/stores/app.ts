@@ -95,20 +95,25 @@ export const useAppStore = defineStore('app', {
 
     startRound() {
       return new Promise((resolve, reject) => {
+        const GAME_TICK_RATE = 100
+
         // ////////////////////////// start race interval
         this.raceStatus.spentTime = 0
         this.raceInterval = setInterval(() => {
           // increase spentTime
-          this.raceStatus.spentTime += 100
+          this.raceStatus.spentTime += GAME_TICK_RATE
+          const horsesXpos = new Set<number>([])
 
           // update horse movement position
           for (const item of this.raceStatus?.horsesData || []) {
             const movementRate = item.condition + item.todaysCondition
             item.xPos = item.xPos + (movementRate > 0 ? movementRate : Math.random() * 100 + 20)
+            horsesXpos.add(item.xPos)
           }
 
           // finish round
-          if (this.raceStatus.spentTime >= this.raceStatus.totalTime) {
+          const biggestHorseXpos = [...horsesXpos].sort((a, b) => b - a)[0] || 0
+          if (this.raceStatus.spentTime >= this.raceStatus.totalTime && biggestHorseXpos >= this.raceStatus.totalTime) {
             // kill interval
             clearInterval(this.raceInterval)
 
@@ -146,7 +151,7 @@ export const useAppStore = defineStore('app', {
             // resolve promise - ready for next round ;)
             resolve(true)
           }
-        }, 100 * useRuntimeConfig().public.gameSpeedMultiplier)
+        }, GAME_TICK_RATE * useRuntimeConfig().public.gameSpeedMultiplier)
       })
     },
 
