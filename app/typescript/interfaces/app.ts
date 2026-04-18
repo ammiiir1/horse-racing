@@ -42,7 +42,6 @@ export interface IHorseRaceData extends IHorse {
 
 export interface IRaceStatus {
   totalTime: number
-  spentTime: number
   roundData: IRaceRound | undefined
   horsesData: IHorseRaceData[]
   isStarted: boolean

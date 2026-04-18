@@ -14,7 +14,6 @@ export const useAppStore = defineStore('app', {
       horsesData: [],
       roundData: undefined,
       totalTime: 0,
-      spentTime: 0,
       isStarted: false
     } as IRaceStatus,
     activeRaceProgram: undefined as IRaceProgram | undefined,
@@ -72,8 +71,7 @@ export const useAppStore = defineStore('app', {
         horsesData: [],
         roundData: payload?.roundData,
         isStarted: payload?.isStarted || false,
-        totalTime: payload?.totalTime || 0,
-        spentTime: payload?.totalTime || 0
+        totalTime: payload?.totalTime || 0
       }
 
       // update raceStatus horses data according to activeRaceProgram horses list
@@ -98,22 +96,22 @@ export const useAppStore = defineStore('app', {
         const GAME_TICK_RATE = 100
 
         // ////////////////////////// start race interval
-        this.raceStatus.spentTime = 0
         this.raceInterval = setInterval(() => {
-          // increase spentTime
-          this.raceStatus.spentTime += GAME_TICK_RATE
+          // save all horses xPos to then find the biggest one and find the winner and stop round
           const horsesXpos = new Set<number>([])
 
           // update horse movement position
           for (const item of this.raceStatus?.horsesData || []) {
             const movementRate = item.condition + item.todaysCondition
             item.xPos = item.xPos + (movementRate > 0 ? movementRate : Math.random() * 100 + 20)
+
+            // save all xPoses
             horsesXpos.add(item.xPos)
           }
 
           // finish round
           const biggestHorseXpos = [...horsesXpos].sort((a, b) => b - a)[0] || 0
-          if (this.raceStatus.spentTime >= this.raceStatus.totalTime && biggestHorseXpos >= this.raceStatus.totalTime) {
+          if (biggestHorseXpos >= this.raceStatus.totalTime) {
             // kill interval
             clearInterval(this.raceInterval)
 
@@ -164,8 +162,7 @@ export const useAppStore = defineStore('app', {
           this.setRaceStatus({
             isStarted: true,
             roundData: round,
-            totalTime: round.length * 10 * useRuntimeConfig().public.gameSpeedMultiplier,
-            spentTime: 0
+            totalTime: round.length * 10 * useRuntimeConfig().public.gameSpeedMultiplier
           })
 
           await this.startRound()
