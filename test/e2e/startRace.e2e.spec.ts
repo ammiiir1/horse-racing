@@ -3,6 +3,7 @@ import { describe, it } from 'vitest'
 import { expect } from '@playwright/test'
 import { TEST_DATA_SELECTORS as td } from '../helpers/testDataSelectors'
 import { RaceFlow } from '../helpers/raceTestFlows'
+import { default_viewport as viewport } from '../setup/defaults'
 
 describe('Start A Race From Programs List', async () => {
   await setup({
@@ -16,26 +17,12 @@ describe('Start A Race From Programs List', async () => {
     }
   })
 
-  it('should do generate a program and run it, stop it, again run it and tries to change route ... ', async () => {
-    const page = await createPage(url('/'), {
-      viewport: {
-        width: 1440,
-        height: 900
-      }
-    })
+  it('should check race page to see if all parts are loaded correctly', async () => {
+    const page = await createPage(url('/'), { viewport })
 
     // use RaceFlow helpers
     const raceFlow = new RaceFlow(page)
-
-    await raceFlow.gotoProgramsPage()
-    await expect(page).toHaveURL(url('/programs'))
-
-    // generate a program and click on its start brn
-    await page.getByTestId(td.genRaceProgramBtn).click()
-    const raceProgramItem = page.getByTestId(td.raceProgramItem).first()
-    await raceProgramItem.click()
-    await raceProgramItem.getByTestId(td.startRaceBtn).click()
-    await expect(page).toHaveURL(/\/programs\/race\?pid=/)
+    await raceFlow.gotoRacePage()
 
     // check all elements
     await expect(page.getByTestId(td.raceTrack)).toBeVisible()
@@ -43,6 +30,14 @@ describe('Start A Race From Programs List', async () => {
     await expect(page.getByTestId(td.raceTrackLane)).toHaveCount(10)
     await expect(page.getByTestId(td.raceResultTable)).toHaveCount(6)
     await expect(page.getByTestId(td.raceActionBar)).toContainText('Ready to go?')
+  })
+
+  it('should start a race and check if horses move', async () => {
+    const page = await createPage(url('/'), { viewport })
+
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
 
     // capture initial positions for first and last horses
     const horses = page.getByTestId(td.horseVector)
@@ -50,7 +45,7 @@ describe('Start A Race From Programs List', async () => {
     const lastHorseStart = await horses.last().evaluate((el) => parseFloat(el.style.left) || 0)
 
     // start race
-    await page.getByTestId(td.startRaceBtn).click()
+    await raceFlow.clickStartRaceBtn()
     await expect(page.getByTestId(td.startRaceBtn)).not.toBeVisible()
     await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
     await expect(page.getByTestId(td.raceActionBar)).toContainText('is running ...')
@@ -62,65 +57,106 @@ describe('Start A Race From Programs List', async () => {
     const lastHorseEnd = await horses.last().evaluate((el) => parseFloat(el.style.left) || 0)
     expect(firstHorseEnd).toBeGreaterThan(firstHorseStart)
     expect(lastHorseEnd).toBeGreaterThan(lastHorseStart)
+  })
+
+  it('should start a race, try to stop it, reject the confirmation alert (so race should continue)', async () => {
+    const page = await createPage(url('/'), { viewport })
+
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
+
+    // start race
+    await raceFlow.clickStartRaceBtn()
 
     // check stop button
-    await page.getByTestId(td.stopRaceBtn).click()
+    await raceFlow.clickStopRaceBtn()
     await expect(page.locator('.stop-race-alert')).toBeVisible()
 
     // check cancel alert
     await page.locator('.cancel-stop-alert-btn').click()
     await expect(page.locator('.stop-race-alert')).toBeHidden()
 
-    // check confirm alert
+    // check if race is still running
     await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
-    await page.getByTestId(td.stopRaceBtn).click()
+  })
+
+  it('should start a race, try to stop it, confirm the confirmation alert and finish race', async () => {
+    const page = await createPage(url('/'), { viewport })
+
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
+
+    // start race
+    await raceFlow.clickStartRaceBtn()
+
+    // check stop button
+    await raceFlow.clickStopRaceBtn()
+    await expect(page.locator('.stop-race-alert')).toBeVisible()
+
+    // check confirm cancel alert
     await expect(page.locator('.confirm-stop-alert-btn')).toBeVisible()
     await page.locator('.confirm-stop-alert-btn').click()
     await expect(page.locator('.stop-race-alert')).not.toBeVisible()
+
+    // check if race has stopped
     await expect(page.getByTestId(td.stopRaceBtn)).not.toBeVisible()
     await expect(page.getByTestId(td.startRaceBtn)).toBeVisible()
     await expect(page.getByTestId(td.raceActionBar)).toContainText('Ready to go?')
+  })
 
-    // start race again, this time trying leave page while race running
-    await page.getByTestId(td.startRaceBtn).click()
+  it('should start a race, try to leave page (change navigation), game should popup a confirmation to stop, if user cancels page should not leave', async () => {
+    const page = await createPage(url('/'), { viewport })
+
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
+
+    // start race
+    await raceFlow.clickStartRaceBtn()
     await page.getByTestId(td.raceProgramLink).click()
 
     // if user cancels, page should not leave
+    await expect(page.locator('.cancel-stop-alert-btn')).toBeVisible()
     await page.locator('.cancel-stop-alert-btn').click()
     await expect(page).toHaveURL(/\/programs\/race\?pid=/)
     await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
+  })
 
-    // now if user confirms leave page
+  it('should start a race, try to leave page (change navigation), game should popup a confirmation to stop, if user confirms page should game should stop and page should change', async () => {
+    const page = await createPage(url('/'), { viewport })
+
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
+
+    // start race
+    await raceFlow.clickStartRaceBtn()
     await page.getByTestId(td.raceProgramLink).click()
+
+    // if user confirms, page should leave
+    await expect(page.locator('.confirm-stop-alert-btn')).toBeVisible()
     await page.locator('.confirm-stop-alert-btn').click()
     await expect(page).toHaveURL(url('/programs'))
   })
 
-  it('should do generate a program and run it until it finishes and goes back to programs list', async () => {
-    const page = await createPage()
+  it('should start a race and wait it until it finishes and goes back to programs list', async () => {
+    const page = await createPage(url('/'), { viewport })
 
-    await page.goto(url('/'))
-    await page.getByTestId(td.raceProgramLink).click()
-    await expect(page).toHaveURL(url('/programs'))
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+    await raceFlow.gotoRacePage()
 
-    // generate a program and click on its start brn
-    await expect(page.getByTestId(td.genRaceProgramBtn)).toBeVisible()
-    await page.getByTestId(td.genRaceProgramBtn).click()
+    // start race
+    await raceFlow.clickStartRaceBtn()
 
-    await expect(page.getByTestId(td.raceProgramList)).toBeVisible()
-    await page.getByTestId(td.raceProgramItem).first().click()
-    await expect(page.getByTestId(td.raceProgramItem).first().getByTestId(td.startRaceBtn)).toBeVisible()
-    await page.getByTestId(td.raceProgramItem).first().getByTestId(td.startRaceBtn).click()
-    await expect(page).toHaveURL(/\/programs\/race\?pid=/)
-
-    // final gameplay test is here
-    await page.getByTestId(td.startRaceBtn).click()
     await page.waitForTimeout(2000) // let horses run
-    await expect(page.locator('.finish-race-alert')).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.finish-race-alert')).toBeVisible()
     await page.locator('.confirm-finish-alert-btn').click()
     await expect(page).toHaveURL(url('/programs'))
 
     // now check if program item is marked ad completed
-    await expect(page.getByTestId(td.raceProgramItem).first()).toContainText('Completed')
+    await expect(page.getByTestId(td.raceProgramItem)).toContainText('Completed')
   })
 })

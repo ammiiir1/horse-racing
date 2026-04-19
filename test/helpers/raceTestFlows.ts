@@ -18,8 +18,17 @@ export class RaceFlow {
     await this.gotoProgramsPage()
     await this.generateProgram()
     const raceProgramItem = this.page.getByTestId(td.raceProgramItem)
-    await raceProgramItem.click({ force: true })
+    const collapseHeader = raceProgramItem.locator('.el-collapse-item__header')
+    await collapseHeader.click()
     await raceProgramItem.getByTestId(td.startRaceBtn).click()
     await this.page.waitForURL(/\/programs\/race\?pid=/)
+  }
+
+  async clickStartRaceBtn() {
+    await this.page.getByTestId(td.startRaceBtn).click()
+  }
+
+  async clickStopRaceBtn() {
+    await this.page.getByTestId(td.stopRaceBtn).click()
   }
 }

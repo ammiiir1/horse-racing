@@ -3,7 +3,7 @@ import { genHorses } from '@/lib/horse'
 import { genRaceProgram } from '@/lib/raceProgram'
 
 describe('Race Program Library Test', () => {
-  // mock nuxtRuntimeConfig
+  // mock nuxtRuntimeConfig for use in genHorse function
   // @ts-ignore
   globalThis.useRuntimeConfig = () => ({
     public: {

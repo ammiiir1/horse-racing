@@ -47,17 +47,21 @@ describe('Generate Race Program', async () => {
     // //////////////////////// generating first race program
     await raceFlow.generateProgram()
     await raceFlow.generateProgram()
+    await expect(page.getByTestId(td.raceProgramItem)).toHaveCount(2)
 
     // get program items
     const firstRaceProgramItem = page.getByTestId(td.raceProgramItem).nth(0)
+    const firstCollapseHeader = firstRaceProgramItem.locator('.el-collapse-item__header')
+
     const secondRaceProgramItem = page.getByTestId(td.raceProgramItem).nth(1)
+    const secondCollapseHeader = secondRaceProgramItem.locator('.el-collapse-item__header')
 
     // before start, check every thing is collapsed and not visible
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
 
     // expand first collapse
-    await firstRaceProgramItem.click({ force: true })
+    await firstCollapseHeader.click()
     await expect(firstRaceProgramItem).toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
 
@@ -66,12 +70,12 @@ describe('Generate Race Program', async () => {
     await expect(secondRaceProgramItem.getByTestId(td.startRaceBtn)).not.toBeVisible()
 
     // collapse first collapse
-    await firstRaceProgramItem.click({ force: true })
+    await firstCollapseHeader.click()
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).not.toHaveClass(/is-active/)
 
     // expand second collapse
-    await secondRaceProgramItem.click({ force: true })
+    await secondCollapseHeader.click()
     await expect(firstRaceProgramItem).not.toHaveClass(/is-active/)
     await expect(secondRaceProgramItem).toHaveClass(/is-active/)
   })

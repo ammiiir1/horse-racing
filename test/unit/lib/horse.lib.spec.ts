@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { genHorses } from '@/lib/horse'
 
 describe('Horse Library Test', () => {
-  // mock nuxtRuntimeConfig
+  // mock nuxtRuntimeConfig for use in genHorse function
   // @ts-ignore
   globalThis.useRuntimeConfig = () => ({
     public: {
