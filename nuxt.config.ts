@@ -1,3 +1,4 @@
+import type { ID } from './app/typescript/types/app'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@pinia/nuxt', '@element-plus/nuxt', '@nuxt/test-utils/module'],
@@ -19,7 +20,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      gameSpeedMultiplier: 1
+      gameSpeedMultiplier: 1,
+      testMode: false
     }
   },
   compatibilityDate: '2025-07-15',

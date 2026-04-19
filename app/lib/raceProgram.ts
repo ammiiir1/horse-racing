@@ -1,4 +1,4 @@
-import type { IHorse, IRaceRound } from '~/typescript/interfaces/app'
+import type { IHorse, IRaceProgram, IRaceRound } from '~/typescript/interfaces/app'
 import type { ID } from '~/typescript/types/app'
 
 // ////////////////////////////////////////////// helpers
@@ -20,7 +20,7 @@ export const genRaceRounds = () => {
 }
 
 // ////////////////////////////////////////////////// generate program
-export const genRaceProgram = (availableHorses: ID[]) => {
+export const genRaceProgram = (availableHorses: ID[]): IRaceProgram => {
   const chosenHorses = new Set<ID>()
 
   while (chosenHorses.size < 10) {
@@ -31,6 +31,7 @@ export const genRaceProgram = (availableHorses: ID[]) => {
   return {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
+    startedAt: 0,
     finishedAt: 0,
     horses: Array.from(chosenHorses),
     rounds: genRaceRounds(),

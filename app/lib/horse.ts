@@ -1,4 +1,5 @@
 import type { IHorse } from '~/typescript/interfaces/app'
+import type { ID } from '~/typescript/types/app'
 
 // ///////////////////////////////////////////////////// data
 const horseNames = [
@@ -100,10 +101,12 @@ const getRandomName = (count: number) => {
 
 // ///////////////////////////////////////////////////// generate horses
 export const genHorses = (count: number): IHorse[] => {
+  const testMode = useRuntimeConfig().public.testMode
+
   return Array.from({ length: count }, (_, i) => ({
-    id: crypto.randomUUID(),
-    name: getRandomName(count)[i] || `Horse ${i + 1}`,
-    condition: Math.floor(Math.random() * 100) + 1,
+    id: testMode ? `test-id-${i}` as ID : crypto.randomUUID(),
+    name: testMode ? `horse-name-${i}` : (getRandomName(count)[i] || `Horse ${i + 1}`),
+    condition: testMode ? 100 - i : Math.floor(Math.random() * 100) + 1,
     color: genRandomColor(),
     races: 0,
     wins: 0

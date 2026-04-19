@@ -46,8 +46,7 @@ export const mockRaceStatus = () => {
     horsesData: horses.map((item) => ({ ...item, xPos: 0, todaysCondition: 2 })),
     roundData: rounds[0],
     isStarted: false,
-    totalTime: 0,
-    spentTime: 0
+    totalTime: 0
   }
   return raceStatus
 }

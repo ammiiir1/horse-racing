@@ -3,6 +3,14 @@ import { genHorses } from '@/lib/horse'
 import { genRaceProgram } from '@/lib/raceProgram'
 
 describe('Race Program Library Test', () => {
+  // mock nuxtRuntimeConfig for use in genHorse function
+  // @ts-ignore
+  globalThis.useRuntimeConfig = () => ({
+    public: {
+      testMode: true
+    }
+  })
+
   it('should generate a valid raceProgram', () => {
     const horses = genHorses(20)
     const raceProgram = genRaceProgram(horses.map((item) => item.id))
