@@ -27,6 +27,7 @@ export interface IRaceRound {
 export interface IRaceProgram {
   id: ID
   createdAt: number
+  startedAt: number
   finishedAt: number
   /** horses: 10 horses */
   horses: ID[]
@@ -42,7 +43,6 @@ export interface IHorseRaceData extends IHorse {
 
 export interface IRaceStatus {
   totalTime: number
-  spentTime: number
   roundData: IRaceRound | undefined
   horsesData: IHorseRaceData[]
   isStarted: boolean
