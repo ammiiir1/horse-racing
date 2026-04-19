@@ -1,8 +1,6 @@
 name: CI Stage Branch
 
 on:
-  push:
-    branches: [stage]
   pull_request:
     branches: [stage]
 
