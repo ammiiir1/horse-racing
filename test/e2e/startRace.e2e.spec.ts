@@ -2,23 +2,32 @@ import { setup, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, it } from 'vitest'
 import { expect } from '@playwright/test'
 import { TEST_DATA_SELECTORS as td } from '../helpers/testDataSelectors'
+import { RaceFlow } from '../helpers/raceTestFlows'
 
 describe('Start A Race From Programs List', async () => {
   await setup({
     nuxtConfig: {
       runtimeConfig: {
         public: {
-          gameSpeedMultiplier: 0.2
+          gameSpeedMultiplier: 0.2,
+          testMode: true
         }
       }
     }
   })
 
   it('should do generate a program and run it, stop it, again run it and tries to change route ... ', async () => {
-    const page = await createPage()
+    const page = await createPage(url('/'), {
+      viewport: {
+        width: 1440,
+        height: 900
+      }
+    })
 
-    await page.goto(url('/'))
-    await page.getByTestId(td.raceProgramLink).click()
+    // use RaceFlow helpers
+    const raceFlow = new RaceFlow(page)
+
+    await raceFlow.gotoProgramsPage()
     await expect(page).toHaveURL(url('/programs'))
 
     // generate a program and click on its start brn
@@ -46,7 +55,7 @@ describe('Start A Race From Programs List', async () => {
     await expect(page.getByTestId(td.stopRaceBtn)).toBeVisible()
     await expect(page.getByTestId(td.raceActionBar)).toContainText('is running ...')
 
-    await page.waitForTimeout(200) // let horses run
+    await page.waitForTimeout(100) // let horses run
 
     // check if horses have moved
     const firstHorseEnd = await horses.first().evaluate((el) => parseFloat(el.style.left) || 0)

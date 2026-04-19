@@ -82,7 +82,7 @@ export const useAppStore = defineStore('app', {
           this.raceStatus.horsesData.push({
             ...horse,
             xPos: 0,
-            todaysCondition: (Math.random() - Math.random()) * 10
+            todaysCondition: useRuntimeConfig().public.testMode ? 0 : (Math.random() - Math.random()) * 10
           })
         }
       }
